@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:auto_route/auto_route.dart';
 
 class EventsView extends StatelessWidget {
   @override
@@ -25,61 +26,7 @@ class EventsView extends StatelessWidget {
                 child: CarouselSlider.builder(
                   itemCount: 3,
                   itemBuilder: (context, indedx) {
-                    return Card(
-                      color: Colors.deepPurple[700],
-                      child: Container(
-                          width: 0.8.wp,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  title: Text("Explore ML",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2),
-                                ),
-                                Divider(
-                                  height: 1,
-                                  thickness: 2,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(3),
-                                  height: 0.35.hp,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(
-                                  height: 0.02.hp,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 0.2.hp,
-                                    child: Text(
-                                        "The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 7,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1),
-                                  ),
-                                ),
-                                RaisedButton(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 0.2.wp, vertical: 0.015.hp),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  color: Colors.purple,
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Register",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
-                    );
+                    return EventCard();
                   },
                   options: CarouselOptions(
                     enableInfiniteScroll: false,
@@ -94,6 +41,77 @@ class EventsView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class EventCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final Function onPressed;
+  final String imageUrl;
+  const EventCard({
+    Key key,
+    this.title,
+    this.description,
+    this.onPressed,
+    this.imageUrl,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: Colors.deepPurple[700],
+      child: Container(
+          width: 0.8.wp,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text("Explore ML",
+                      style: Theme.of(context).textTheme.headline2),
+                ),
+                Divider(
+                  height: 1,
+                  thickness: 2,
+                ),
+                Container(
+                  padding: EdgeInsets.all(3),
+                  height: 0.35.hp,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  height: 0.02.hp,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 0.2.hp,
+                    child: Text(
+                        "The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications",
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 7,
+                        style: Theme.of(context).textTheme.bodyText1),
+                  ),
+                ),
+                RaisedButton(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 0.2.wp, vertical: 0.015.hp),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  color: Colors.purple,
+                  onPressed: () {
+                    context.rootNavigator.push('/event-detail-view');
+                  },
+                  child: Text(
+                    "Register",
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                )
+              ],
+            ),
+          )),
     );
   }
 }

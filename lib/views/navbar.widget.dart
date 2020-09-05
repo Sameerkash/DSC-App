@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'admin/admin.view.dart';
 import 'events/events.view.dart';
 import 'info/info.view.dart';
 import 'profile/profile.view.dart';
@@ -18,6 +19,7 @@ class _NavBarPageState extends State<NavBarPage> {
     SocialView(),
     InfoView(),
     ProfileView(),
+    AdminView()
   ];
 
   int _selectedIndex = 0;
@@ -67,6 +69,12 @@ class _NavBarPageState extends State<NavBarPage> {
                 selectedIcon: SizedBox.shrink(),
                 // selectedIcon: Icon(Icons.favorite),
                 label: RotatedBox(quarterTurns: -1, child: Text('Profile')),
+              ),
+              NavigationRailDestination(
+                icon: SizedBox.shrink(),
+                selectedIcon: SizedBox.shrink(),
+                // selectedIcon: Icon(Icons.favorite),
+                label: RotatedBox(quarterTurns: -1, child: Text('Admin')),
               ),
             ],
           ),
