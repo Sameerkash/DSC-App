@@ -1,7 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../models/event.dart';
+
 class EventDetailView extends StatelessWidget {
+  final Event event;
+  const EventDetailView({
+    Key key,
+    this.event,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +25,11 @@ class EventDetailView extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(
-                  "Explore ML",
+                  "${event.name}",
                   style: Theme.of(context).textTheme.headline1,
                 ),
-                background: Image.network(
-                  "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
+                background: CachedNetworkImage(
+                  imageUrl: event.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -41,7 +50,8 @@ class EventDetailView extends StatelessWidget {
                   height: 0.05.hp,
                 ),
                 Text(
-                  "The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applicationsThe Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications",
+                  event.description,
+                  // "The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applicationsThe Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 SizedBox(
@@ -54,7 +64,7 @@ class EventDetailView extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     Text(
-                      "250",
+                      "${event.attendees}",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],

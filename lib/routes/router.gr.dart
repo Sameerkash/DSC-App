@@ -8,7 +8,9 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../models/event.dart';
 import '../views/app.widget.dart';
 import '../views/events/event_details.view.dart';
 
@@ -38,8 +40,14 @@ class Router extends RouterBase {
       );
     },
     EventDetailView: (data) {
+      final args = data.getArgs<EventDetailViewArguments>(
+        orElse: () => EventDetailViewArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => EventDetailView(),
+        builder: (context) => EventDetailView(
+          key: args.key,
+          event: args.event,
+        ),
         settings: data,
       );
     },
@@ -53,6 +61,23 @@ class Router extends RouterBase {
 extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushAppWidget() => push<dynamic>(Routes.appWidget);
 
-  Future<dynamic> pushEventDetailView() =>
-      push<dynamic>(Routes.eventDetailView);
+  Future<dynamic> pushEventDetailView({
+    Key key,
+    Event event,
+  }) =>
+      push<dynamic>(
+        Routes.eventDetailView,
+        arguments: EventDetailViewArguments(key: key, event: event),
+      );
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// EventDetailView arguments holder class
+class EventDetailViewArguments {
+  final Key key;
+  final Event event;
+  EventDetailViewArguments({this.key, this.event});
 }

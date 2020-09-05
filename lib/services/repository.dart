@@ -14,6 +14,7 @@ class AppRepository {
         Event eve = Event.fromJson(doc.data());
         events.add(eve);
       });
+      print(events);
       return events;
     } catch (e) {
       return [];

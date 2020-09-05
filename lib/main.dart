@@ -9,8 +9,9 @@ import 'package:provider/provider.dart';
 import 'routes/router.gr.dart';
 import 'utils/theme.util.dart';
 
-void main() {
-  FirebaseApp defaultApp = Firebase.app();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
