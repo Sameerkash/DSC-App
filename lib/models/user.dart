@@ -3,17 +3,17 @@ part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-abstract class User with _$User {
-  const factory User({
+abstract class AppUser with _$AppUser {
+  const factory AppUser({
     String uid,
     String userName,
     String usn,
     String phone,
     String email,
     @Default(false) bool isAdmin,
-  }) = _User;
+  }) = _AppUser;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);
 
-  Map<String, dynamic> toJson() => _$_$_UserToJson(this);
+  Map<String, dynamic> toJson() => _$_$_AppUserToJson(this);
 }
