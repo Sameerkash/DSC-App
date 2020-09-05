@@ -18,8 +18,9 @@ class EventDetailView extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              backgroundColor: Colors.orange,
               leading: SizedBox.shrink(),
-              expandedHeight: 0.3.hp,
+              expandedHeight: 0.32.hp,
               floating: true,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
@@ -60,11 +61,11 @@ class EventDetailView extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Attendees: ",
+                      "${event.attendees}",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     Text(
-                      "${event.attendees}",
+                      " are attending this event",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
@@ -86,7 +87,7 @@ class EventDetailView extends StatelessWidget {
                         horizontal: 0.3.wp, vertical: 0.02.hp),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
-                    color: Colors.purple,
+                    color: Colors.orangeAccent,
                     onPressed: () {},
                     child: Text(
                       "Register",

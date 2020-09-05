@@ -33,9 +33,9 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           NavigationRail(
             elevation: 1,
-            minWidth: 0.1.wp,
+            minWidth: 0.09.wp,
             groupAlignment: 0.0,
-            backgroundColor: Color(0xff152a3d),
+            backgroundColor: Colors.black,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
               setState(() {
@@ -47,10 +47,12 @@ class _NavBarPageState extends State<NavBarPage> {
               NavigationRailDestination(
                 selectedIcon: SizedBox.shrink(),
                 icon: SizedBox.shrink(),
-                // selectedIcon: Icon(Icons.favorite),
                 label: RotatedBox(
                   quarterTurns: -1,
-                  child: Text('Events'),
+                  child: Text(
+                    'Events',
+                    style: TextStyle(color: Colors.orangeAccent),
+                  ),
                 ),
               ),
               NavigationRailDestination(

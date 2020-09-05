@@ -69,7 +69,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.deepPurple[700],
+      color: Colors.orangeAccent,
       child: Container(
           width: 0.8.wp,
           child: SingleChildScrollView(
@@ -116,7 +116,7 @@ class EventCard extends StatelessWidget {
                       horizontal: 0.1.wp, vertical: 0.015.hp),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
-                  color: Colors.purple,
+                  color: Colors.orange,
                   onPressed: () {
                     context.rootNavigator.push('/event-detail-view',
                         arguments: EventDetailViewArguments(event: event));
