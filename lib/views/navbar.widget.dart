@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'admin/admin.view.dart';
+import 'auth/auth.view.dart';
 import 'events/events.view.dart';
 import 'info/info.view.dart';
 import 'profile/profile.view.dart';
-import 'social/social.view.dart';
 
 class NavBarPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class NavBarPage extends StatefulWidget {
 class _NavBarPageState extends State<NavBarPage> {
   List<Widget> screens = [
     EventsView(),
-    SocialView(),
+    AutView(),
     InfoView(),
     ProfileView(),
     AdminView()

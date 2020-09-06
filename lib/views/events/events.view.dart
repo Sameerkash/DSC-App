@@ -26,7 +26,7 @@ class EventsView extends StatelessWidget {
               ),
               context.watch<EventState>().map(
                   loading: (_) => Center(
-                        child: CircularProgressIndicator(),
+                        child: LinearProgressIndicator(),
                       ),
                   loaded: (data) => Expanded(
                         child: CarouselSlider.builder(
