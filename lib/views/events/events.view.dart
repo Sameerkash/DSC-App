@@ -13,10 +13,6 @@ class EventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Upcoming Events",
-      //       style: Theme.of(context).appBarTheme.textTheme.headline1),
-      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),

@@ -13,7 +13,6 @@
 - [ ] Generate QR code on event geistration and verify it on venue
 - [ ] Gain Accurate insight on the details of Attendees. 
 - [ ] Issue Badges to attendees for registration or winning tasks during the event
-- [ ] Social Media page by scraping twitter or Linkedin feed to save databse cost
 - [ ] Join us page for connecting users with the DSC chapter page and displaying past event pictures and videos
 - [ ] Profile page for disaplying user account and badges or accomplishments
 
