@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
+import 'package:provider/provider.dart';
+
+import 'auth.vm.dart';
+
 class AutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = ScreenUtil.screenHeight;
-    print(height);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -65,7 +68,9 @@ class AutView extends StatelessWidget {
                   MaterialCommunityIcons.google,
                   color: Colors.black,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.read<AuthVM>().googleSignIn();
+                },
                 label: Text(
                   "SignIn with Google",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(

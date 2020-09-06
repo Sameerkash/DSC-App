@@ -16,7 +16,6 @@ class NavBarPage extends StatefulWidget {
 class _NavBarPageState extends State<NavBarPage> {
   List<Widget> screens = [
     EventsView(),
-    AutView(),
     InfoView(),
     ProfileView(),
     AdminView()
@@ -55,12 +54,12 @@ class _NavBarPageState extends State<NavBarPage> {
                   ),
                 ),
               ),
-              NavigationRailDestination(
-                icon: SizedBox.shrink(),
-                selectedIcon: SizedBox.shrink(),
-                // selectedIcon: Icon(Icons.favorite),
-                label: RotatedBox(quarterTurns: -1, child: Text('Social')),
-              ),
+              // NavigationRailDestination(
+              //   icon: SizedBox.shrink(),
+              //   selectedIcon: SizedBox.shrink(),
+              //   // selectedIcon: Icon(Icons.favorite),
+              //   label: RotatedBox(quarterTurns: -1, child: Text('Social')),
+              // ),
               NavigationRailDestination(
                 icon: SizedBox.shrink(),
                 selectedIcon: SizedBox.shrink(),
