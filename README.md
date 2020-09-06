@@ -8,7 +8,7 @@
 
 
 **Features**
-- [ ] Events view displaying future events
+- [x] Events view displaying future events
 - [ ] SignUp users using google singin 
 - [ ] Generate QR code on event geistration and verify it on venue
 - [ ] Gain Accurate insight on the details of Attendees. 
@@ -18,7 +18,7 @@
 - [ ] Profile page for disaplying user account and badges or accomplishments
 
 **Admin**
-- [ ] Create,update and delete evnts 
+- [ ] Create,update and delete events 
 - [ ] Verify QR code 
 - [ ] Check Attendess list
 - [ ] Issue Badges to users
