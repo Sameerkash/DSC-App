@@ -4,7 +4,7 @@
 
 
 
-## A template for creating, managing and conducting events by a DSC club in thier chapter, built using Flutter 💙 x Firebase🔥
+## A template for creating, managing and conducting events by a DSC club in their chapter, built using Flutter 💙 x Firebase🔥
 
 
 **Features**
