@@ -23,7 +23,6 @@ class EventVM extends StateNotifier<EventState> with LocatorMixin {
 
   Future<void> getEvents() async {
     final res = await read<AppRepository>().getEvents();
-    print(res);
 
     state = EventState.loaded(events: res);
   }

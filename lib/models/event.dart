@@ -4,13 +4,16 @@ part 'event.g.dart';
 
 @freezed
 abstract class Event with _$Event {
-  const factory Event(
-      {String eid,
-      String name,
-      String attendees,
-      String imageUrl,
-      String description,
-      @JsonKey(ignore: true) @Default(false) bool isRegistered}) = _Event;
+  const factory Event({
+    String eid,
+    String name,
+    String attendees,
+    String imageUrl,
+    String description,
+    @Default("0xffffc107") String color,
+    @Default("0xffffb300") String secondaryColor,
+    @JsonKey(ignore: true) @Default(false) bool isRegistered,
+  }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 

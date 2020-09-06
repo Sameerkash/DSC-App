@@ -22,6 +22,8 @@ class _$EventTearOff {
       String attendees,
       String imageUrl,
       String description,
+      String color = '0xffffc107',
+      String secondaryColor = '0xffffb300',
       @JsonKey(ignore: true) bool isRegistered = false}) {
     return _Event(
       eid: eid,
@@ -29,6 +31,8 @@ class _$EventTearOff {
       attendees: attendees,
       imageUrl: imageUrl,
       description: description,
+      color: color,
+      secondaryColor: secondaryColor,
       isRegistered: isRegistered,
     );
   }
@@ -43,6 +47,8 @@ mixin _$Event {
   String get attendees;
   String get imageUrl;
   String get description;
+  String get color;
+  String get secondaryColor;
   @JsonKey(ignore: true)
   bool get isRegistered;
 
@@ -59,6 +65,8 @@ abstract class $EventCopyWith<$Res> {
       String attendees,
       String imageUrl,
       String description,
+      String color,
+      String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered});
 }
 
@@ -76,6 +84,8 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
     Object attendees = freezed,
     Object imageUrl = freezed,
     Object description = freezed,
+    Object color = freezed,
+    Object secondaryColor = freezed,
     Object isRegistered = freezed,
   }) {
     return _then(_value.copyWith(
@@ -85,6 +95,10 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
+      color: color == freezed ? _value.color : color as String,
+      secondaryColor: secondaryColor == freezed
+          ? _value.secondaryColor
+          : secondaryColor as String,
       isRegistered:
           isRegistered == freezed ? _value.isRegistered : isRegistered as bool,
     ));
@@ -101,6 +115,8 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String attendees,
       String imageUrl,
       String description,
+      String color,
+      String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered});
 }
 
@@ -119,6 +135,8 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     Object attendees = freezed,
     Object imageUrl = freezed,
     Object description = freezed,
+    Object color = freezed,
+    Object secondaryColor = freezed,
     Object isRegistered = freezed,
   }) {
     return _then(_Event(
@@ -128,6 +146,10 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
+      color: color == freezed ? _value.color : color as String,
+      secondaryColor: secondaryColor == freezed
+          ? _value.secondaryColor
+          : secondaryColor as String,
       isRegistered:
           isRegistered == freezed ? _value.isRegistered : isRegistered as bool,
     ));
@@ -142,8 +164,12 @@ class _$_Event implements _Event {
       this.attendees,
       this.imageUrl,
       this.description,
+      this.color = '0xffffc107',
+      this.secondaryColor = '0xffffb300',
       @JsonKey(ignore: true) this.isRegistered = false})
-      : assert(isRegistered != null);
+      : assert(color != null),
+        assert(secondaryColor != null),
+        assert(isRegistered != null);
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
       _$_$_EventFromJson(json);
@@ -158,13 +184,19 @@ class _$_Event implements _Event {
   final String imageUrl;
   @override
   final String description;
+  @JsonKey(defaultValue: '0xffffc107')
+  @override
+  final String color;
+  @JsonKey(defaultValue: '0xffffb300')
+  @override
+  final String secondaryColor;
   @override
   @JsonKey(ignore: true)
   final bool isRegistered;
 
   @override
   String toString() {
-    return 'Event(eid: $eid, name: $name, attendees: $attendees, imageUrl: $imageUrl, description: $description, isRegistered: $isRegistered)';
+    return 'Event(eid: $eid, name: $name, attendees: $attendees, imageUrl: $imageUrl, description: $description, color: $color, secondaryColor: $secondaryColor, isRegistered: $isRegistered)';
   }
 
   @override
@@ -184,6 +216,11 @@ class _$_Event implements _Event {
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
                     .equals(other.description, description)) &&
+            (identical(other.color, color) ||
+                const DeepCollectionEquality().equals(other.color, color)) &&
+            (identical(other.secondaryColor, secondaryColor) ||
+                const DeepCollectionEquality()
+                    .equals(other.secondaryColor, secondaryColor)) &&
             (identical(other.isRegistered, isRegistered) ||
                 const DeepCollectionEquality()
                     .equals(other.isRegistered, isRegistered)));
@@ -197,6 +234,8 @@ class _$_Event implements _Event {
       const DeepCollectionEquality().hash(attendees) ^
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(color) ^
+      const DeepCollectionEquality().hash(secondaryColor) ^
       const DeepCollectionEquality().hash(isRegistered);
 
   @override
@@ -216,6 +255,8 @@ abstract class _Event implements Event {
       String attendees,
       String imageUrl,
       String description,
+      String color,
+      String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered}) = _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
@@ -230,6 +271,10 @@ abstract class _Event implements Event {
   String get imageUrl;
   @override
   String get description;
+  @override
+  String get color;
+  @override
+  String get secondaryColor;
   @override
   @JsonKey(ignore: true)
   bool get isRegistered;

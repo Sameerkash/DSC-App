@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dsckssem/services/repository.dart';
-import 'package:dsckssem/views/events/event.vm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'routes/router.gr.dart';
+import 'services/repository.dart';
 import 'utils/theme.util.dart';
+import 'views/events/event.vm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

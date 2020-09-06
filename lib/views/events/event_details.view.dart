@@ -18,7 +18,7 @@ class EventDetailView extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              backgroundColor: Colors.orange,
+              backgroundColor: Color(int.tryParse(event.color)),
               leading: SizedBox.shrink(),
               expandedHeight: 0.32.hp,
               floating: true,
@@ -87,7 +87,7 @@ class EventDetailView extends StatelessWidget {
                         horizontal: 0.3.wp, vertical: 0.02.hp),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
-                    color: Colors.orangeAccent,
+                    color: Color(int.tryParse(event.secondaryColor)),
                     onPressed: () {},
                     child: Text(
                       "Register",

@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dsckssem/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/event.dart';
+import '../../routes/router.gr.dart';
 import 'event.vm.dart';
 
 class EventsView extends StatelessWidget {
@@ -69,7 +69,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.orangeAccent,
+      color: Color(int.tryParse(event.color)),
       child: Container(
           width: 0.8.wp,
           child: SingleChildScrollView(
@@ -116,7 +116,7 @@ class EventCard extends StatelessWidget {
                       horizontal: 0.1.wp, vertical: 0.015.hp),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
-                  color: Colors.orange,
+                  color: Color(int.tryParse(event.secondaryColor)),
                   onPressed: () {
                     context.rootNavigator.push('/event-detail-view',
                         arguments: EventDetailViewArguments(event: event));
