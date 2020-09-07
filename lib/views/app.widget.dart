@@ -15,8 +15,10 @@ class AppWidget extends StatelessWidget {
         ScreenUtil.init(context,
             allowFontScaling: true, width: size.width, height: size.height);
         return context.watch<AuthState>().map(
-              loading: (_) => CircularProgressIndicator(),
-              authenticated: (user) => NavBarPage(),
+              loading: (_) => Center(child: CircularProgressIndicator()),
+              authenticated: (data) => NavBarPage(
+                isAdmin: data.user?.isAdmin,
+              ),
               unauthenticated: (_) => AutView(),
             );
       },

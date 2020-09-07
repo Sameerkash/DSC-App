@@ -24,24 +24,33 @@ class AuthVM extends StateNotifier<AuthState> with LocatorMixin {
         state = AuthState.unauthenticated();
         print('User is currently signed out!');
       } else {
-        setUser(firebaseUser: firebaseUser);
-        
+        setting(firebaseUser);
         print('User is signed in!');
       }
     });
     super.initState();
   }
 
+  void setting(User firebaseUser) async {
+    await setUser(firebaseUser: firebaseUser);
+  }
+
   // request for uid, if exists, store in semabast, and update state
   // if doc not exists create a doc, update and set state
 
   Future<void> setUser({User firebaseUser}) async {
-    await read<AppRepository>()
-        .setUser(firebaseUser: firebaseUser, uid: firebaseUser.uid);
+    // final current = state;
 
-    final user = await read<AppRepository>().getLoggedInUser();
+    // if (current is Loading) {
+      final result = await read<AppRepository>()
+          .setUser(firebaseUser: firebaseUser, uid: firebaseUser.uid);
 
-    state = AuthState.authenticated(user: user);
+      if (result) {
+        final user = await read<AppRepository>().getLoggedInUser();
+
+        state = AuthState.authenticated(user: user);
+      }
+    // }
   }
 
   Future<void> googleSignIn() async {

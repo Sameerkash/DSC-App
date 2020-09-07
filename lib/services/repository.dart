@@ -24,11 +24,15 @@ class AppRepository {
   static const USERKEY = 'userkey';
 
   /// Set user to local databse and Firestore collection
-  Future<void> setUser({String uid, User firebaseUser}) async {
+  Future<bool> setUser({String uid, User firebaseUser}) async {
     try {
       final result = await firestore.collection('users').doc(uid).get();
       if (result.exists) {
-        _store.record(USERKEY).add(await _db, result.data());
+        final res = await _store
+            .record(USERKEY)
+            .put(await _db, result.data(), merge: true);
+        print("write1 $res ");
+        return true;
       } else {
         final user = AppUser(
             uid: uid,
@@ -38,10 +42,16 @@ class AppRepository {
 
         await firestore.collection('users').doc(uid).set(user.toJson());
 
-        await _store.record(USERKEY).add(await _db, user.toJson());
+        final res = await _store
+            .record(USERKEY)
+            .put(await _db, result.data(), merge: true);
+        print("write2 $res ");
+
+        return true;
       }
     } catch (e) {
       print("$e");
+      return false;
     }
   }
 
@@ -49,15 +59,11 @@ class AppRepository {
   Future<AppUser> getLoggedInUser() async {
     try {
       final user = await _store.record(USERKEY).get(await _db);
-      if (user != null) {
-        print(user);
-        return AppUser.fromJson(user);
-      } else {
-        return null;
-      }
+      print(user);
+      final appuser = AppUser.fromJson(user);
+      return appuser;
     } catch (e) {
       print(e);
-      return null;
     }
   }
 

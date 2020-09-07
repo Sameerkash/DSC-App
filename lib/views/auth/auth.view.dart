@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-
 import 'package:provider/provider.dart';
 
 import 'auth.vm.dart';
@@ -14,7 +13,7 @@ class AutView extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
-            top: height < 600 ? 0.01.hp : 0.04.hp, left: 5, right: 5),
+            top: height < 600 ? 0.02.hp : 0.07.hp, left: 5, right: 5),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

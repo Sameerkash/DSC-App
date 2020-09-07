@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:dsckssem/models/user.dart';
+
 import 'admin/admin.view.dart';
 import 'auth/auth.view.dart';
 import 'events/events.view.dart';
@@ -9,17 +11,40 @@ import 'info/info.view.dart';
 import 'profile/profile.view.dart';
 
 class NavBarPage extends StatefulWidget {
+  final bool isAdmin;
+  const NavBarPage({
+    Key key,
+    this.isAdmin = false,
+  }) : super(key: key);
   @override
   _NavBarPageState createState() => _NavBarPageState();
 }
 
 class _NavBarPageState extends State<NavBarPage> {
-  List<Widget> screens = [
-    EventsView(),
-    InfoView(),
-    ProfileView(),
-    AdminView()
-  ];
+  @override
+  void initState() {
+    setNav();
+    super.initState();
+  }
+
+  List<Widget> screens = [];
+
+  void setNav() {
+    if (widget.isAdmin) {
+      screens = [
+        EventsView(),
+        InfoView(),
+        ProfileView(),
+        AdminView(),
+      ];
+    } else {
+      screens = [
+        EventsView(),
+        InfoView(),
+        ProfileView(),
+      ];
+    }
+  }
 
   int _selectedIndex = 0;
   @override
@@ -71,12 +96,13 @@ class _NavBarPageState extends State<NavBarPage> {
                 // selectedIcon: Icon(Icons.favorite),
                 label: RotatedBox(quarterTurns: -1, child: Text('Profile')),
               ),
-              NavigationRailDestination(
-                icon: SizedBox.shrink(),
-                selectedIcon: SizedBox.shrink(),
-                // selectedIcon: Icon(Icons.favorite),
-                label: RotatedBox(quarterTurns: -1, child: Text('Admin')),
-              ),
+              if (widget.isAdmin)
+                NavigationRailDestination(
+                  icon: SizedBox.shrink(),
+                  selectedIcon: SizedBox.shrink(),
+                  // selectedIcon: Icon(Icons.favorite),
+                  label: RotatedBox(quarterTurns: -1, child: Text('Admin')),
+                ),
             ],
           ),
           VerticalDivider(thickness: 1, width: 1),
