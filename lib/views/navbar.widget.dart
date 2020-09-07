@@ -88,7 +88,7 @@ class _NavBarPageState extends State<NavBarPage> {
               NavigationRailDestination(
                 icon: SizedBox.shrink(),
                 selectedIcon: SizedBox.shrink(),
-                label: RotatedBox(quarterTurns: -1, child: Text('Join')),
+                label: RotatedBox(quarterTurns: -1, child: Text('Explore')),
               ),
               NavigationRailDestination(
                 icon: SizedBox.shrink(),

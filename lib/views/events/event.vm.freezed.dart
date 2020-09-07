@@ -92,12 +92,18 @@ class _$LoadingCopyWithImpl<$Res> extends _$EventStateCopyWithImpl<$Res>
   Loading get _value => super._value as Loading;
 }
 
-class _$Loading implements Loading {
+class _$Loading with DiagnosticableTreeMixin implements Loading {
   const _$Loading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'EventState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'EventState.loading'));
   }
 
   @override
@@ -193,7 +199,7 @@ class _$LoadedCopyWithImpl<$Res> extends _$EventStateCopyWithImpl<$Res>
   }
 }
 
-class _$Loaded implements Loaded {
+class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   const _$Loaded({this.events = const []}) : assert(events != null);
 
   @JsonKey(defaultValue: const [])
@@ -201,8 +207,16 @@ class _$Loaded implements Loaded {
   final List<Event> events;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'EventState.loaded(events: $events)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'EventState.loaded'))
+      ..add(DiagnosticsProperty('events', events));
   }
 
   @override
@@ -309,15 +323,23 @@ class _$ErrorCopyWithImpl<$Res> extends _$EventStateCopyWithImpl<$Res>
   }
 }
 
-class _$Error implements Error {
+class _$Error with DiagnosticableTreeMixin implements Error {
   const _$Error({this.error});
 
   @override
   final String error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'EventState.error(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'EventState.error'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override

@@ -11,15 +11,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/event.dart';
+import '../views/admin/event.form.view.dart';
+import '../views/admin/manage.events.view.dart';
 import '../views/app.widget.dart';
 import '../views/events/event_details.view.dart';
 
 class Routes {
   static const String appWidget = '/';
   static const String eventDetailView = '/event-detail-view';
+  static const String manageEventsView = '/manage-events-view';
+  static const String eventForm = '/event-form';
   static const all = <String>{
     appWidget,
     eventDetailView,
+    manageEventsView,
+    eventForm,
   };
 }
 
@@ -29,6 +35,8 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.appWidget, page: AppWidget),
     RouteDef(Routes.eventDetailView, page: EventDetailView),
+    RouteDef(Routes.manageEventsView, page: ManageEventsView),
+    RouteDef(Routes.eventForm, page: EventForm),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -51,6 +59,18 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    ManageEventsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ManageEventsView(),
+        settings: data,
+      );
+    },
+    EventForm: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => EventForm(),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -69,6 +89,11 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
         Routes.eventDetailView,
         arguments: EventDetailViewArguments(key: key, event: event),
       );
+
+  Future<dynamic> pushManageEventsView() =>
+      push<dynamic>(Routes.manageEventsView);
+
+  Future<dynamic> pushEventForm() => push<dynamic>(Routes.eventForm);
 }
 
 /// ************************************************************************

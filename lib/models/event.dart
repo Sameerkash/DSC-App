@@ -7,9 +7,10 @@ abstract class Event with _$Event {
   const factory Event({
     String eid,
     String name,
-    String attendees,
+    @Default(0) int attendees,
     String imageUrl,
     String description,
+    DateTime time,
     @Default("0xffffc107") String color,
     @Default("0xffffb300") String secondaryColor,
     @JsonKey(ignore: true) @Default(false) bool isRegistered,

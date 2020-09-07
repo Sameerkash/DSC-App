@@ -60,6 +60,7 @@ dependencies:
   firebase_messaging: ^7.0.0
   google_sign_in: ^4.5.3
   firebase_core: ^0.5.0
+  flutter_form_builder: ^3.13.4
 
 dev_dependencies:
   flutter_test:

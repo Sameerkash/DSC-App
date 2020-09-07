@@ -19,9 +19,10 @@ class _$EventTearOff {
   _Event call(
       {String eid,
       String name,
-      String attendees,
+      int attendees = 0,
       String imageUrl,
       String description,
+      DateTime time,
       String color = '0xffffc107',
       String secondaryColor = '0xffffb300',
       @JsonKey(ignore: true) bool isRegistered = false}) {
@@ -31,6 +32,7 @@ class _$EventTearOff {
       attendees: attendees,
       imageUrl: imageUrl,
       description: description,
+      time: time,
       color: color,
       secondaryColor: secondaryColor,
       isRegistered: isRegistered,
@@ -44,9 +46,10 @@ const $Event = _$EventTearOff();
 mixin _$Event {
   String get eid;
   String get name;
-  String get attendees;
+  int get attendees;
   String get imageUrl;
   String get description;
+  DateTime get time;
   String get color;
   String get secondaryColor;
   @JsonKey(ignore: true)
@@ -62,9 +65,10 @@ abstract class $EventCopyWith<$Res> {
   $Res call(
       {String eid,
       String name,
-      String attendees,
+      int attendees,
       String imageUrl,
       String description,
+      DateTime time,
       String color,
       String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered});
@@ -84,6 +88,7 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
     Object attendees = freezed,
     Object imageUrl = freezed,
     Object description = freezed,
+    Object time = freezed,
     Object color = freezed,
     Object secondaryColor = freezed,
     Object isRegistered = freezed,
@@ -91,10 +96,11 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
     return _then(_value.copyWith(
       eid: eid == freezed ? _value.eid : eid as String,
       name: name == freezed ? _value.name : name as String,
-      attendees: attendees == freezed ? _value.attendees : attendees as String,
+      attendees: attendees == freezed ? _value.attendees : attendees as int,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
+      time: time == freezed ? _value.time : time as DateTime,
       color: color == freezed ? _value.color : color as String,
       secondaryColor: secondaryColor == freezed
           ? _value.secondaryColor
@@ -112,9 +118,10 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   $Res call(
       {String eid,
       String name,
-      String attendees,
+      int attendees,
       String imageUrl,
       String description,
+      DateTime time,
       String color,
       String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered});
@@ -135,6 +142,7 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     Object attendees = freezed,
     Object imageUrl = freezed,
     Object description = freezed,
+    Object time = freezed,
     Object color = freezed,
     Object secondaryColor = freezed,
     Object isRegistered = freezed,
@@ -142,10 +150,11 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     return _then(_Event(
       eid: eid == freezed ? _value.eid : eid as String,
       name: name == freezed ? _value.name : name as String,
-      attendees: attendees == freezed ? _value.attendees : attendees as String,
+      attendees: attendees == freezed ? _value.attendees : attendees as int,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
+      time: time == freezed ? _value.time : time as DateTime,
       color: color == freezed ? _value.color : color as String,
       secondaryColor: secondaryColor == freezed
           ? _value.secondaryColor
@@ -161,13 +170,15 @@ class _$_Event implements _Event {
   const _$_Event(
       {this.eid,
       this.name,
-      this.attendees,
+      this.attendees = 0,
       this.imageUrl,
       this.description,
+      this.time,
       this.color = '0xffffc107',
       this.secondaryColor = '0xffffb300',
       @JsonKey(ignore: true) this.isRegistered = false})
-      : assert(color != null),
+      : assert(attendees != null),
+        assert(color != null),
         assert(secondaryColor != null),
         assert(isRegistered != null);
 
@@ -178,12 +189,15 @@ class _$_Event implements _Event {
   final String eid;
   @override
   final String name;
+  @JsonKey(defaultValue: 0)
   @override
-  final String attendees;
+  final int attendees;
   @override
   final String imageUrl;
   @override
   final String description;
+  @override
+  final DateTime time;
   @JsonKey(defaultValue: '0xffffc107')
   @override
   final String color;
@@ -196,7 +210,7 @@ class _$_Event implements _Event {
 
   @override
   String toString() {
-    return 'Event(eid: $eid, name: $name, attendees: $attendees, imageUrl: $imageUrl, description: $description, color: $color, secondaryColor: $secondaryColor, isRegistered: $isRegistered)';
+    return 'Event(eid: $eid, name: $name, attendees: $attendees, imageUrl: $imageUrl, description: $description, time: $time, color: $color, secondaryColor: $secondaryColor, isRegistered: $isRegistered)';
   }
 
   @override
@@ -216,6 +230,8 @@ class _$_Event implements _Event {
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
                     .equals(other.description, description)) &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)) &&
             (identical(other.color, color) ||
                 const DeepCollectionEquality().equals(other.color, color)) &&
             (identical(other.secondaryColor, secondaryColor) ||
@@ -234,6 +250,7 @@ class _$_Event implements _Event {
       const DeepCollectionEquality().hash(attendees) ^
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(time) ^
       const DeepCollectionEquality().hash(color) ^
       const DeepCollectionEquality().hash(secondaryColor) ^
       const DeepCollectionEquality().hash(isRegistered);
@@ -252,9 +269,10 @@ abstract class _Event implements Event {
   const factory _Event(
       {String eid,
       String name,
-      String attendees,
+      int attendees,
       String imageUrl,
       String description,
+      DateTime time,
       String color,
       String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered}) = _$_Event;
@@ -266,11 +284,13 @@ abstract class _Event implements Event {
   @override
   String get name;
   @override
-  String get attendees;
+  int get attendees;
   @override
   String get imageUrl;
   @override
   String get description;
+  @override
+  DateTime get time;
   @override
   String get color;
   @override
