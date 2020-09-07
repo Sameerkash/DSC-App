@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'routes/router.gr.dart';
 import 'services/repository.dart';
 import 'utils/theme.util.dart';
+import 'views/admin/manage.event.vm.dart';
 import 'views/auth/auth.vm.dart';
 import 'views/events/event.vm.dart';
 
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         StateNotifierProvider<EventVM, EventState>(
           create: (_) => EventVM(),
         ),
+        StateNotifierProvider<ManagaeEventVM, ManageEventState>(
+          create: (_) => ManagaeEventVM(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

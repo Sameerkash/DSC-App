@@ -9,15 +9,15 @@
 
 **Features**
 - [x] Events view displaying future events
-- [ ] SignUp users using google singin 
+- [x] SignUp users using google singin 
 - [ ] Generate QR code on event geistration and verify it on venue
 - [ ] Gain Accurate insight on the details of Attendees. 
 - [ ] Issue Badges to attendees for registration or winning tasks during the event
-- [ ] Join us page for connecting users with the DSC chapter page and displaying past event pictures and videos
-- [ ] Profile page for disaplying user account and badges or accomplishments
+- [ ] Explore page for connecting users with the DSC chapter page and displaying past event pictures and videos
+- [ ] Profile page for displaying user account, badges and accomplishments
 
 **Admin**
-- [ ] Create,update and delete events 
+- [x] Create,update and delete events 
 - [ ] Verify QR code 
 - [ ] Check Attendess list
 - [ ] Issue Badges to users

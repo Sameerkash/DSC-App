@@ -61,7 +61,7 @@ class Router extends RouterBase {
     },
     ManageEventsView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => ManageEventsView().wrappedRoute(context),
+        builder: (context) => ManageEventsView(),
         settings: data,
       );
     },

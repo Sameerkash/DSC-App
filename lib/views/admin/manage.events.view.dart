@@ -1,13 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dsckssem/views/events/event.vm.dart';
+import 'package:dsckssem/widgets/dailog.dart';
+import 'package:dsckssem/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 
+import '../../routes/router.gr.dart';
 import '../../widgets/cards.dart';
 import 'manage.event.vm.dart';
 
-class ManageEventsView extends StatelessWidget with AutoRouteWrapper {
+class ManageEventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,28 @@ class ManageEventsView extends StatelessWidget with AutoRouteWrapper {
                             return ManageEventCard(
                               title: "${data.event[index].name}",
                               imageUrl: data.event[index].imageUrl,
-                              onEdit: () {},
+                              onEdit: () {
+                                context.rootNavigator.push(
+                                  '/event-form',
+                                  arguments: EventFormArguments(
+                                    event: data.event[index],
+                                    isEditing: true,
+                                  ),
+                                );
+                              },
+                              onDelete: () async {
+                                final res = await deleteDialog(context);
+                                if (res) {
+                                  showBlockingDialog(context);
+
+                                  await context
+                                      .read<ManagaeEventVM>()
+                                      .deleteEvent(event: data.event[index]);
+                                      
+                                  await context.read<EventVM>().getEvents();
+                                  context.rootNavigator.pop();
+                                }
+                              },
                             );
                           },
                         ),
@@ -47,14 +71,6 @@ class ManageEventsView extends StatelessWidget with AutoRouteWrapper {
           color: Colors.black,
         ),
       ),
-    );
-  }
-
-  @override
-  Widget wrappedRoute(BuildContext context) {
-    return StateNotifierProvider<ManagaeEventVM, ManageEventState>(
-      create: (_) => ManagaeEventVM(),
-      child: this,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,9 +26,10 @@ class EventDetailView extends StatelessWidget {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                title: Text(
+                title: AutoSizeText(
                   "${event.name}",
                   style: Theme.of(context).textTheme.headline1,
+                  maxLines: 1,
                 ),
                 background: CachedNetworkImage(
                   imageUrl: event.imageUrl,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dsckssem/models/event.dart';
 import 'package:dsckssem/routes/router.gr.dart';
@@ -25,7 +26,9 @@ class EventCard extends StatelessWidget {
             child: Column(
               children: [
                 ListTile(
-                  title: Text("${event.name}",
+                  title: AutoSizeText("${event.name}",
+                      minFontSize: 14,
+                      maxLines: 1,
                       style: Theme.of(context).textTheme.headline2),
                 ),
                 Divider(
@@ -106,19 +109,28 @@ class ManageEventCard extends StatelessWidget {
       child: Card(
         child: ListTile(
             onTap: onTap,
-            leading: CachedNetworkImage(
-              imageUrl: imageUrl,
-              imageBuilder: (_, img) {
-                return CircleAvatar(
-                  radius: 25,
-                  backgroundImage: img,
-                );
-              },
+            leading: Container(
+              width: 0.1.wp,
+              height: 0.1.wp,
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                imageBuilder: (_, img) {
+                  return CircleAvatar(
+                    radius: 25,
+                    backgroundImage: img,
+                  );
+                },
+              ),
             ),
             title: Row(
               children: [
-                Text(title),
-                Spacer(),
+                Expanded(
+                  child: AutoSizeText(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 IconButton(
                   onPressed: onEdit,
                   icon: Icon(

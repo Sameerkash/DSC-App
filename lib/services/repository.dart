@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dsckssem/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sembast/sembast.dart';
+import 'package:path/path.dart' as path;
 
 import '../models/event.dart';
 import 'database.dart';
@@ -17,6 +22,8 @@ class AppRepository {
   /// Smebase Databse Instance
   final Future<Database> _db = AppDatabase.instance.database;
 
+  /// Firebase Storage
+  final firebaseStorage = FirebaseStorage.instance.ref();
   // Store
   final _store = stringMapStoreFactory.store('common_store');
 
@@ -106,6 +113,56 @@ class AppRepository {
       return events;
     } catch (e) {
       return [];
+    }
+  }
+
+  /// Create or Update [Event]
+  Future<void> createEvent(
+      {@required Event event, String imageUrl, File image, String uuid}) async {
+    try {
+      ///
+      print("called");
+      if (image != null) {
+        var fileExtension = path.extension(image.path);
+        final storageRefrence =
+            firebaseStorage.child('events/$uuid$fileExtension');
+
+        await storageRefrence.putFile(image).onComplete.catchError((err) {
+          print(err);
+          return;
+        });
+
+        String url = await storageRefrence.getDownloadURL();
+        //
+        final eve = event.copyWith(imageUrl: url);
+
+        await firestore
+            .collection('events')
+            .doc(uuid)
+            .set(eve.toJson(), SetOptions(merge: true));
+      } else {
+        final eve = event.copyWith(imageUrl: imageUrl);
+
+        await firestore
+            .collection('events')
+            .doc(uuid)
+            .set(eve.toJson(), SetOptions(merge: true));
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> deleteEvent({@required String eid, String imageUrl}) async {
+    try {
+      final StorageReference storageReference =
+          await FirebaseStorage.instance.getReferenceFromUrl(imageUrl);
+
+      await storageReference.delete();
+
+      await firestore.collection('events').doc(eid).delete();
+    } catch (e) {
+      print(e);
     }
   }
 }

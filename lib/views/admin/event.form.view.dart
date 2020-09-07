@@ -1,9 +1,15 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-import 'package:dsckssem/models/event.dart';
+import '../../models/event.dart';
+import '../../widgets/loader.dart';
+import '../events/event.vm.dart';
+import 'manage.event.vm.dart';
 
 class EventForm extends StatefulWidget {
   final bool isEditing;
@@ -25,14 +31,39 @@ class _EventFormState extends State<EventForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create an Event"),
+        title:
+            widget.isEditing ? Text("Update Event") : Text("Create an Event"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              if (widget.isEditing)
+                CachedNetworkImage(
+                  imageUrl: widget.event.imageUrl,
+                  imageBuilder: (_, img) {
+                    return Container(
+                      height: 0.2.hp,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: img, fit: BoxFit.cover),
+                      ),
+                    );
+                  },
+                ),
+              SizedBox(
+                height: 0.015.hp,
+              ),
               FormBuilder(
+                initialValue: widget.isEditing
+                    ? {
+                        "name": widget.event.name,
+                        "description": widget.event.description,
+                        "color": widget.event.color,
+                        "secondaryColor": widget.event.secondaryColor,
+                        "date": widget.event.time,
+                      }
+                    : {},
                 autovalidate: false,
                 key: _fbKey,
                 child: Column(
@@ -77,13 +108,13 @@ class _EventFormState extends State<EventForm> {
                       spacing: 0.05.wp,
                       options: [
                         FormBuilderFieldOption(
-                            child: Text("RedAccent"), value: "0xFFE53935"),
+                            child: Text("Red"), value: "0xFFE53935"),
                         FormBuilderFieldOption(
-                            child: Text("OrangeAccent"), value: "0xffffb300"),
+                            child: Text("Orange"), value: "0xffffb300"),
                         FormBuilderFieldOption(
-                            child: Text("GreenAccent"), value: "0xFF66BB6A"),
+                            child: Text("Green"), value: "0xFF66BB6A"),
                         FormBuilderFieldOption(
-                            child: Text("BlueAccent"), value: "0xFF00B0FF"),
+                            child: Text("Blue"), value: "0xFF00B0FF"),
                       ],
                     ),
                     SizedBox(
@@ -119,9 +150,12 @@ class _EventFormState extends State<EventForm> {
                         border: InputBorder.none,
                       ),
                       labelText: "Select an image",
-                      validators: [
-                        FormBuilderValidators.required(),
-                      ],
+                      validators: widget.isEditing
+                          ? []
+                          : [
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.max(1),
+                            ],
                     ),
                     SizedBox(
                       height: 0.02.hp,
@@ -164,7 +198,26 @@ class _EventFormState extends State<EventForm> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 color: Colors.deepPurple,
-                onPressed: () {},
+                onPressed: () async {
+                  print("called form");
+
+                  if (_fbKey.currentState.saveAndValidate()) {
+                    showBlockingDialog(context);
+                    if (widget.isEditing) {
+                      await context.read<ManagaeEventVM>().createEvent(
+                          form: _fbKey.currentState.value,
+                          isEditing: true,
+                          eve: widget.event);
+                    } else {
+                      await context
+                          .read<ManagaeEventVM>()
+                          .createEvent(form: _fbKey.currentState.value);
+                    }
+                    await context.read<EventVM>().getEvents();
+                    context.rootNavigator.pop();
+                    context.rootNavigator.pop();
+                  }
+                },
                 icon: Icon(Icons.check),
                 label: Text("Submit"),
               ),
