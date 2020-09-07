@@ -3,7 +3,17 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import 'package:dsckssem/models/event.dart';
+
 class EventForm extends StatefulWidget {
+  final bool isEditing;
+  final Event event;
+  const EventForm({
+    Key key,
+    this.isEditing = false,
+    this.event,
+  }) : super(key: key);
+
   @override
   _EventFormState createState() => _EventFormState();
 }
@@ -43,11 +53,11 @@ class _EventFormState extends State<EventForm> {
                       spacing: 0.05.wp,
                       options: [
                         FormBuilderFieldOption(
-                            child: Text("RedAccent"), value: "vanilla"),
+                            child: Text("RedAccent"), value: "0xFFFF1744"),
                         FormBuilderFieldOption(
-                            child: Text("OrangeAccent"), value: "chocolate"),
+                            child: Text("OrangeAccent"), value: "0xffffc107"),
                         FormBuilderFieldOption(
-                            child: Text("GreenAccent"), value: "strawberry"),
+                            child: Text("GreenAccent"), value: "0xFF00E676"),
                         FormBuilderFieldOption(
                             child: Text("BlueAccent"), value: "0xff29B6F6"),
                       ],
@@ -67,19 +77,22 @@ class _EventFormState extends State<EventForm> {
                       spacing: 0.05.wp,
                       options: [
                         FormBuilderFieldOption(
-                            child: Text("RedAccent"), value: "vanilla"),
+                            child: Text("RedAccent"), value: "0xFFE53935"),
                         FormBuilderFieldOption(
-                            child: Text("OrangeAccent"), value: "chocolate"),
+                            child: Text("OrangeAccent"), value: "0xffffb300"),
                         FormBuilderFieldOption(
-                            child: Text("GreenAccent"), value: "strawberry"),
+                            child: Text("GreenAccent"), value: "0xFF66BB6A"),
                         FormBuilderFieldOption(
-                            child: Text("BlueAccent"), value: "0xff00B0FF"),
+                            child: Text("BlueAccent"), value: "0xFF00B0FF"),
                       ],
                     ),
                     SizedBox(
                       height: 0.02.hp,
                     ),
                     FormBuilderDateTimePicker(
+                      validators: [
+                        FormBuilderValidators.required(),
+                      ],
                       style: Theme.of(context).textTheme.bodyText1,
                       attribute: "date",
                       inputType: InputType.both,
@@ -106,6 +119,9 @@ class _EventFormState extends State<EventForm> {
                         border: InputBorder.none,
                       ),
                       labelText: "Select an image",
+                      validators: [
+                        FormBuilderValidators.required(),
+                      ],
                     ),
                     SizedBox(
                       height: 0.02.hp,

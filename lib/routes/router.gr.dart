@@ -61,13 +61,20 @@ class Router extends RouterBase {
     },
     ManageEventsView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => ManageEventsView(),
+        builder: (context) => ManageEventsView().wrappedRoute(context),
         settings: data,
       );
     },
     EventForm: (data) {
+      final args = data.getArgs<EventFormArguments>(
+        orElse: () => EventFormArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => EventForm(),
+        builder: (context) => EventForm(
+          key: args.key,
+          isEditing: args.isEditing,
+          event: args.event,
+        ),
         settings: data,
       );
     },
@@ -93,7 +100,16 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushManageEventsView() =>
       push<dynamic>(Routes.manageEventsView);
 
-  Future<dynamic> pushEventForm() => push<dynamic>(Routes.eventForm);
+  Future<dynamic> pushEventForm({
+    Key key,
+    bool isEditing = false,
+    Event event,
+  }) =>
+      push<dynamic>(
+        Routes.eventForm,
+        arguments:
+            EventFormArguments(key: key, isEditing: isEditing, event: event),
+      );
 }
 
 /// ************************************************************************
@@ -105,4 +121,12 @@ class EventDetailViewArguments {
   final Key key;
   final Event event;
   EventDetailViewArguments({this.key, this.event});
+}
+
+/// EventForm arguments holder class
+class EventFormArguments {
+  final Key key;
+  final bool isEditing;
+  final Event event;
+  EventFormArguments({this.key, this.isEditing = false, this.event});
 }

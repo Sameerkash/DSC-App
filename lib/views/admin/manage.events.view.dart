@@ -1,9 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:auto_route/auto_route.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:provider/provider.dart';
 
-class ManageEventsView extends StatelessWidget {
+import '../../widgets/cards.dart';
+import 'manage.event.vm.dart';
+
+class ManageEventsView extends StatelessWidget with AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,9 +18,21 @@ class ManageEventsView extends StatelessWidget {
             children: [
               Text("Manage Events",
                   style: Theme.of(context).textTheme.headline1),
-              ManageEventCard(
-                title: "Explore ML",
-              )
+              context.watch<ManageEventState>().map(
+                  loading: (_) => LinearProgressIndicator(),
+                  loaded: (data) => Expanded(
+                        child: ListView.builder(
+                          itemCount: data.event.length,
+                          itemBuilder: (_, index) {
+                            return ManageEventCard(
+                              title: "${data.event[index].name}",
+                              imageUrl: data.event[index].imageUrl,
+                              onEdit: () {},
+                            );
+                          },
+                        ),
+                      ),
+                  error: (_) => Text("err")),
             ],
           ),
         ),
@@ -33,55 +49,12 @@ class ManageEventsView extends StatelessWidget {
       ),
     );
   }
-}
-
-class ManageEventCard extends StatelessWidget {
-  final String title;
-  final Function onTap;
-  final Function onEdit;
-  final Function onDelete;
-
-  final IconData icon;
-  const ManageEventCard({
-    Key key,
-    this.title,
-    this.onTap,
-    this.onEdit,
-    this.onDelete,
-    this.icon,
-  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.0),
-      child: Card(
-        child: ListTile(
-            onTap: onTap,
-            leading: CircleAvatar(
-                // backgroundImage: ,
-                ),
-            title: Row(
-              children: [
-                Text(title),
-                Spacer(),
-                IconButton(
-                  onPressed: onEdit,
-                  icon: Icon(
-                    Icons.edit,
-                    color: Colors.black,
-                  ),
-                ),
-                IconButton(
-                  onPressed: onDelete,
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.black,
-                  ),
-                )
-              ],
-            )),
-      ),
+  Widget wrappedRoute(BuildContext context) {
+    return StateNotifierProvider<ManagaeEventVM, ManageEventState>(
+      create: (_) => ManagaeEventVM(),
+      child: this,
     );
   }
 }
