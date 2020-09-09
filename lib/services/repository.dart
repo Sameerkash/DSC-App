@@ -35,10 +35,9 @@ class AppRepository {
     try {
       final result = await firestore.collection('users').doc(uid).get();
       if (result.exists) {
-        final res = await _store
-            .record(USERKEY)
-            .put(await _db, result.data(), merge: true);
-        print("write1 $res ");
+        /// Save to Local Storage
+        await _store.record(USERKEY).put(await _db, result.data(), merge: true);
+
         return true;
       } else {
         final user = AppUser(
@@ -49,12 +48,11 @@ class AppRepository {
           imageUrl: firebaseUser.photoURL,
         );
 
+        /// Save to firebase
         await firestore.collection('users').doc(uid).set(user.toJson());
 
-        final res = await _store
-            .record(USERKEY)
-            .put(await _db, result.data(), merge: true);
-        print("write2 $res ");
+        /// Save to local Storage
+        await _store.record(USERKEY).put(await _db, user.toJson(), merge: true);
 
         return true;
       }
@@ -73,12 +71,14 @@ class AppRepository {
       return appuser;
     } catch (e) {
       print(e);
+      return null;
     }
   }
 
   /// Sign out of the App
   Future<void> signOut() async {
-    await _store.record(USERKEY).delete(await _db);
+    final res = await _store.record(USERKEY).delete(await _db);
+    print(res);
     await GoogleSignIn().signOut();
     await auth.signOut();
   }
