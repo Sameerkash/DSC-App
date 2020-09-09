@@ -43,6 +43,7 @@ class ManagaeEventVM extends StateNotifier<ManageEventState> with LocatorMixin {
           time: form['date'],
           color: form['color'],
           secondaryColor: form['secondaryColor'],
+          attendees: eve.attendees,
           eid: eve.eid,
         );
 

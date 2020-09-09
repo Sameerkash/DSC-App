@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/event.dart';
 
@@ -50,7 +51,7 @@ class EventDetailView extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 SizedBox(
-                  height: 0.05.hp,
+                  height: 0.035.hp,
                 ),
                 Text(
                   event.description,
@@ -59,6 +60,13 @@ class EventDetailView extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 0.05.hp,
+                ),
+                Text(
+                  DateFormat('EEE, dd MMM yy  hh:mm a').format(event.time),
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                SizedBox(
+                  height: 0.025.hp,
                 ),
                 Row(
                   children: [

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_route/auto_route.dart';
@@ -25,15 +26,15 @@ class AdminView extends StatelessWidget {
                 onTap: () {},
               ),
               AdminCard(
+                title: "Scan QR Code",
+                icon: Icons.calendar_today,
+                onTap: () {},
+              ),
+              AdminCard(
                 title: "FeedBack",
                 icon: Icons.mail_outline,
                 onTap: () {},
               ),
-              // AdminCard(
-              //   title: "Manage Events",
-              //   icon: Icons.calendar_today,
-              //   onTap: () {},
-              // ),
             ],
           ),
         ),
@@ -64,7 +65,7 @@ class AdminCard extends StatelessWidget {
             icon,
             color: Colors.black,
           ),
-          title: Text(title),
+          title: AutoSizeText(title),
         ),
       ),
     );

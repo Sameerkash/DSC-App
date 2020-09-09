@@ -14,6 +14,7 @@ abstract class AuthState with _$AuthState {
   const factory AuthState.unauthenticated() = UnAuth;
 }
 
+
 class AuthVM extends StateNotifier<AuthState> with LocatorMixin {
   AuthVM() : super(AuthState.loading());
 
@@ -37,6 +38,7 @@ class AuthVM extends StateNotifier<AuthState> with LocatorMixin {
 
   // request for uid, if exists, store in semabast, and update state
   // if doc not exists create a doc, update and set state
+
 
   Future<void> setUser({User firebaseUser}) async {
     // final current = state;
