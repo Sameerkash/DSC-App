@@ -42,10 +42,12 @@ class AppRepository {
         return true;
       } else {
         final user = AppUser(
-            uid: uid,
-            email: firebaseUser.email,
-            userName: firebaseUser.displayName,
-            phone: firebaseUser.phoneNumber);
+          uid: uid,
+          email: firebaseUser.email,
+          userName: firebaseUser.displayName,
+          phone: firebaseUser.phoneNumber,
+          imageUrl: firebaseUser.photoURL,
+        );
 
         await firestore.collection('users').doc(uid).set(user.toJson());
 

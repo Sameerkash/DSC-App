@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:dsckssem/views/profile/profile.vm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         StateNotifierProvider<EventVM, EventState>(
           create: (_) => EventVM(),
+        ),
+        StateNotifierProvider<ProfileVM, ProfileState>(
+          create: (_) => ProfileVM(),
         ),
         StateNotifierProvider<ManagaeEventVM, ManageEventState>(
           create: (_) => ManagaeEventVM(),
