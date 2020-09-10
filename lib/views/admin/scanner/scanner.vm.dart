@@ -13,19 +13,19 @@ abstract class ScannerState with _$ScannerState {
 class ScannerVM extends StateNotifier<ScannerState> with LocatorMixin {
   ScannerVM() : super(ScannerState.loading());
 
-  Future<void> confirmAttendee({String uid, String eid}) async {
+  Future<bool> confirmAttendee({String uid, String eid}) async {
     final current = state;
 
     if (current is Loading) {
-      print(uid);
-      print(eid);
-
       final res = await read<AppRepository>().confirmRegistration(eid, uid);
       // final res = true;
       if (res) {
         state = ScannerState.confirmed();
+        return true;
       } else {
+        print("error");
         ScannerState.error();
+        return false;
       }
     }
   }

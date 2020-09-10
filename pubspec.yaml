@@ -62,7 +62,7 @@ dependencies:
   firebase_core: ^0.5.0
   flutter_form_builder: ^3.13.4
   qr_flutter: ^3.2.0
-  qr_code_scanner: ^0.0.13
+  flutter_barcode_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -113,4 +113,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-

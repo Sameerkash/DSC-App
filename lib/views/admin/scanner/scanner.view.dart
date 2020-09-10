@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dsckssem/widgets/dailog.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:provider/provider.dart';
 import 'scanner.vm.dart';
 
@@ -21,69 +22,77 @@ class ScannerView extends StatefulWidget with AutoRouteWrapper {
 }
 
 class _ScannerViewState extends State<ScannerView> {
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  var qrText = "";
-  QRViewController controller;
+  String _scanBarcode = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 5,
-              child: QRView(
-                key: qrKey,
-                onQRViewCreated: _onQRViewCreated,
-              ),
+      appBar: AppBar(title: const Text('Barcode scan')),
+      body: Builder(
+        builder: (BuildContext context) {
+          return Container(
+            alignment: Alignment.center,
+            child: Flex(
+              direction: Axis.vertical,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    scanQR();
+                    context.read<ScannerVM>().newScan();
+                  },
+                  child: Text("Start QR scan"),
+                ),
+                if (_scanBarcode.isNotEmpty)
+                  RaisedButton(
+                    onPressed: () async {
+                      final qr = _scanBarcode.split(" ");
+                      await confirmAttendee(qr);
+                      setState(() {
+                        _scanBarcode = "";
+                      });
+                    },
+                    child: Text("Verify"),
+                  ),
+              ],
             ),
-            context.watch<ScannerState>().map(
-                loading: (_) => Expanded(
-                      flex: 1,
-                      child: Container(),
-                    ),
-                confirmed: (_) => Expanded(
-                      flex: 1,
-                      child: Center(
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          color: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Scan New",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                          ),
-                          onPressed: () {
-                            context.read<ScannerVM>().newScan();
-                            setState(() {
-                              confirm = true;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                error: (_) => Text("Error occured try again"))
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
-  bool confirm = true;
-
   Future<void> confirmAttendee(List<String> qr) async {
-    if (confirm) {
-      showBlockingDialog(context);
-      await context.read<ScannerVM>().confirmAttendee(eid: qr[0], uid: qr[1]);
-      context.rootNavigator.pop();
+    showBlockingDialog(context);
+    final res =
+        await context.read<ScannerVM>().confirmAttendee(eid: qr[0], uid: qr[1]);
+    context.rootNavigator.pop();
+    if (res)
       Flushbar(
         title: "Confirmed",
         message: "Succesfully Registered",
@@ -91,29 +100,13 @@ class _ScannerViewState extends State<ScannerView> {
         backgroundColor: Colors.black,
         duration: Duration(seconds: 2),
       )..show(context);
-
-      setState(() {
-        confirm = false;
-      });
-    }
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        qrText = scanData;
-      });
-
-      final List<String> qr = qrText.split(" ");
-      confirmAttendee(qr);
-    });
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
+    if (!res)
+      Flushbar(
+        title: "Error",
+        message: "Retry",
+        flushbarStyle: FlushbarStyle.GROUNDED,
+        backgroundColor: Colors.black,
+        duration: Duration(seconds: 2),
+      )..show(context);
   }
 }

@@ -1,11 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dsckssem/views/events/event.vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import 'package:provider/provider.dart';
+import 'package:auto_route/auto_route.dart';
 import '../models/event.dart';
 import '../models/user.dart';
+import 'dailog.dart';
 
 Future<dynamic> resgisterSheet(BuildContext context,
     {Event event, AppUser user, var isConfirmed}) async {
@@ -54,16 +58,10 @@ Future<dynamic> resgisterSheet(BuildContext context,
                     if (isConfirmed.value)
                       Container(
                         color: Colors.white,
-                        child: CachedNetworkImage(
-                          imageUrl: event.imageUrl,
-                          imageBuilder: (_, img) {
-                            return QrImage(
-                              embeddedImage: img,
-                              data: "${event.eid} ${user.uid}",
-                              version: QrVersions.auto,
-                              size: 0.2.hp,
-                            );
-                          },
+                        child: QrImage(
+                          data: "${event.eid} ${user.uid}",
+                          version: QrVersions.auto,
+                          size: 0.2.hp,
                         ),
                       ),
                     SizedBox(
@@ -86,27 +84,30 @@ Future<dynamic> resgisterSheet(BuildContext context,
                       alignment: Alignment.bottomCenter,
                       child: RaisedButton(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 0.3.wp, vertical: 0.02.hp),
+                            horizontal: 0.2.wp, vertical: 0.02.hp),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         color: Colors.white,
-                        onPressed: () async {
-                          // showBlockingDialog(context);
-                          // await context
-                          //     .read<EventVM>()
-                          //     .resgisterEvent(user: user, event: event);
-                          // context.rootNavigator.pop();
+                        onPressed: isConfirmed.value
+                            ? () {}
+                            : () async {
+                                showBlockingDialog(context);
+                                await context
+                                    .read<EventVM>()
+                                    .resgisterEvent(user: user, event: event);
+                                context.rootNavigator.pop();
 
-                          mystate(() {
-                            isConfirmed.value = true;
-                          });
-                        },
-                        child: Text(
-                          "Confirm",
+                                mystate(() {
+                                  isConfirmed.value = true;
+                                });
+                              },
+                        child: AutoSizeText(
+                          isConfirmed.value ? "Confirmed" : "Confirm",
                           style: Theme.of(context)
                               .textTheme
                               .headline2
                               .copyWith(color: Colors.black),
+                          maxLines: 1,
                         ),
                       ),
                     ),

@@ -212,29 +212,43 @@ class AppRepository {
   }
 
   Future<bool> confirmRegistration(String eid, String uid) async {
-    final DocumentReference user = firestore.collection('users').doc(uid);
-    final DocumentReference event = firestore.collection('events').doc(eid);
+    try {
+      final DocumentReference user = firestore.collection('users').doc(uid);
+      final DocumentReference event = firestore.collection('events').doc(eid);
+      final DocumentReference userevent =
+          firestore.collection('events/$eid/registrations').doc(uid);
 
-    firestore.runTransaction((transaction) async {
-      final userSnapshot = await transaction.get(user);
-      final eventSnapshot = await transaction.get(event);
+      // bool success = true;
 
-      if (!userSnapshot.exists || !eventSnapshot.exists) {
-        return false;
-      }
+      final res = await firestore.runTransaction((transaction) async {
+        final userSnapshot = await transaction.get(user);
+        final eventSnapshot = await transaction.get(event);
+        final userEvent = await transaction.get(userevent);
 
-      await firestore
-          .collection('events/$eid/attendees')
-          .doc(user.id)
-          .set(userSnapshot.data());
+        if (!userSnapshot.exists ||
+            !eventSnapshot.exists ||
+            !userEvent.exists) {
+          return false;
+        }
 
-      await firestore
-          .collection('users/$uid/myevens')
-          .doc(eid)
-          .set(eventSnapshot.data());
-      return true;
-    });
+        await firestore
+            .collection('events/$eid/attendees')
+            .doc(user.id)
+            .set(userSnapshot.data());
 
-    return false;
+        await firestore
+            .collection('users/$uid/myevents')
+            .doc(eid)
+            .set(eventSnapshot.data());
+
+        print('called');
+        return true;
+      });
+
+      return res;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }
