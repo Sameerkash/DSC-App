@@ -5,12 +5,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import 'package:provider/provider.dart';
 import 'package:dsckssem/models/user.dart';
 import 'package:dsckssem/widgets/bottomSheet.dart';
 
 import '../../models/event.dart';
+import 'event.vm.dart';
 
-class EventDetailView extends HookWidget {
+class EventDetailView extends StatefulHookWidget {
   final Event event;
   final AppUser user;
   const EventDetailView({
@@ -18,6 +20,19 @@ class EventDetailView extends HookWidget {
     this.event,
     this.user,
   }) : super(key: key);
+
+  @override
+  _EventDetailViewState createState() => _EventDetailViewState();
+}
+
+class _EventDetailViewState extends State<EventDetailView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<EventVM>().setIsRegistred(widget.event);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +43,7 @@ class EventDetailView extends HookWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              backgroundColor: Color(int.tryParse(event.color)),
+              backgroundColor: Color(int.tryParse(widget.event.color)),
               leading: SizedBox.shrink(),
               expandedHeight: 0.32.hp,
               floating: true,
@@ -36,14 +51,14 @@ class EventDetailView extends HookWidget {
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: AutoSizeText(
-                  "${event.name}",
+                  "${widget.event.name}",
                   style: Theme.of(context).textTheme.headline2,
                   maxLines: 1,
                 ),
                 background: Hero(
-                  tag: event.eid,
+                  tag: widget.event.eid,
                   child: CachedNetworkImage(
-                    imageUrl: event.imageUrl,
+                    imageUrl: widget.event.imageUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -65,7 +80,7 @@ class EventDetailView extends HookWidget {
                   height: 0.035.hp,
                 ),
                 Text(
-                  event.description,
+                  widget.event.description,
                   // "The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications The Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applicationsThe Explore ML tack aims to provide exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications  exposure to beginner level Machine learning applications",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
@@ -73,7 +88,8 @@ class EventDetailView extends HookWidget {
                   height: 0.05.hp,
                 ),
                 Text(
-                  DateFormat('EEE, dd MMM yy  hh:mm a').format(event.time),
+                  DateFormat('EEE, dd MMM yy  hh:mm a')
+                      .format(widget.event.time),
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 SizedBox(
@@ -82,7 +98,7 @@ class EventDetailView extends HookWidget {
                 Row(
                   children: [
                     Text(
-                      "${event.attendees}",
+                      "${widget.event.attendees}",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     Text(
@@ -101,24 +117,39 @@ class EventDetailView extends HookWidget {
                 SizedBox(
                   height: 0.15.hp,
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: RaisedButton(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 0.3.wp, vertical: 0.02.hp),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    color: Color(int.tryParse(event.secondaryColor)),
-                    onPressed: () {
-                      resgisterSheet(context,
-                          event: event, isConfirmed: isConfirmed, user: user);
-                    },
-                    child: Text(
-                      "Register",
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                  ),
-                )
+                context.watch<EventState>().maybeMap(
+                    orElse: () => CircularProgressIndicator(),
+                    loaded: (data) => Align(
+                          alignment: Alignment.center,
+                          child: RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 0.3.wp, vertical: 0.02.hp),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            color: Color(
+                                int.tryParse(widget.event.secondaryColor)),
+                            onPressed: data.events
+                                    .where((e) => e.eid == widget.event.eid)
+                                    .toList()[0]
+                                    .isRegistered
+                                ? () {}
+                                : () {
+                                    resgisterSheet(context,
+                                        event: widget.event,
+                                        isConfirmed: isConfirmed,
+                                        user: widget.user);
+                                  },
+                            child: Text(
+                              data.events
+                                      .where((e) => e.eid == widget.event.eid)
+                                      .toList()[0]
+                                      .isRegistered
+                                  ? "Confirmed"
+                                  : "Register",
+                              style: Theme.of(context).textTheme.headline2,
+                            ),
+                          ),
+                        ))
               ],
             ),
           ),

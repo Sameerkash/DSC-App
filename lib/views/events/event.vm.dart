@@ -33,4 +33,51 @@ class EventVM extends StateNotifier<EventState> with LocatorMixin {
 
     state = EventState.loaded(events: res, user: user);
   }
+
+  Future<void> setIsRegistred(Event event) async {
+    final current = state;
+
+    if (current is Loaded) {
+      final res =
+          await read<AppRepository>().fetchEventregistrations(eid: event.eid);
+      bool isregistered = false;
+
+      res.forEach((u) {
+        if (u.uid == current.user.uid) isregistered = true;
+        return;
+      });
+
+      final eve = current.events.map((e) {
+        if (e == event) {
+          if (isregistered) {
+            var eVe = e.copyWith(isRegistered: true);
+            return eVe;
+          }
+        }
+        return e;
+      });
+
+      state = EventState.loaded(user: current.user, events: [...eve]);
+    }
+  }
+
+  Future<void> resgisterEvent({AppUser user, Event event}) async {
+    final current = state;
+
+    if (current is Loaded) {
+      await read<AppRepository>().resgiterEvent(
+          user: user, eid: event.eid, attendees: event.attendees + 1);
+
+      final eve = current.events.map((e) {
+        if (e == event) {
+          var eVe = e.copyWith(attendees: e.attendees + 1, isRegistered: true);
+
+          return eVe;
+        }
+        return e;
+      });
+
+      state = EventState.loaded(user: user, events: [...eve]);
+    }
+  }
 }

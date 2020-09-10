@@ -34,3 +34,13 @@ Future<bool> deleteDialog(BuildContext context) async {
 
   return res;
 }
+
+void showBlockingDialog(BuildContext context) {
+  showDialog<dynamic>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return const Center(child: CircularProgressIndicator());
+    },
+  );
+}

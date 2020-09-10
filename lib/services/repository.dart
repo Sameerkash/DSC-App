@@ -167,4 +167,47 @@ class AppRepository {
       print(e);
     }
   }
+
+  /// Registers the user for a gievn Event
+  ///
+  /// Get a reference to the event collection
+  /// add the user to the events/registrations
+  /// Genertate QR code
+  Future<void> resgiterEvent(
+      {@required AppUser user, @required String eid, int attendees}) async {
+    try {
+      //
+      await firestore
+          .collection('events/$eid/registrations')
+          .doc(user.uid)
+          .set(user.toJson());
+
+      await firestore
+          .collection('events')
+          .doc(eid)
+          .set({"attendees": attendees}, SetOptions(merge: true));
+    } catch (e) {}
+  }
+
+  Future<List<AppUser>> fetchEventregistrations({@required String eid}) async {
+    try {
+      //
+      List<AppUser> registratns = [];
+      final result =
+          await firestore.collection('events/$eid/registrations').get();
+
+      if (result.docs.isNotEmpty) {
+        result.docs.forEach((u) {
+          AppUser user = AppUser.fromJson(u.data());
+          registratns.add(user);
+        });
+      }
+
+      return registratns;
+    } catch (e) {
+      print(e);
+
+      return [];
+    }
+  }
 }

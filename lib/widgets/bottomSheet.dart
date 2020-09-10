@@ -1,9 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dsckssem/models/user.dart';
+import 'package:dsckssem/views/events/event.vm.dart';
+import 'package:dsckssem/widgets/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:auto_route/auto_route.dart';
 
 import '../models/event.dart';
 
@@ -77,6 +81,12 @@ Future<dynamic> resgisterSheet(BuildContext context,
                           borderRadius: BorderRadius.circular(15)),
                       color: Colors.white,
                       onPressed: () async {
+                        showBlockingDialog(context);
+                        await context
+                            .read<EventVM>()
+                            .resgisterEvent(user: user, event: event);
+                        context.rootNavigator.pop();
+
                         mystate(() {
                           isConfirmed.value = true;
                         });

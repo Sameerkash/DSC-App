@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dsckssem/views/events/event.vm.dart';
 import 'package:dsckssem/widgets/dailog.dart';
-import 'package:dsckssem/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
