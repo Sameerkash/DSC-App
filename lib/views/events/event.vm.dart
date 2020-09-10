@@ -40,6 +40,7 @@ class EventVM extends StateNotifier<EventState> with LocatorMixin {
     if (current is Loaded) {
       final res =
           await read<AppRepository>().fetchEventregistrations(eid: event.eid);
+
       bool isregistered = false;
 
       res.forEach((u) {

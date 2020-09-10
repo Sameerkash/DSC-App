@@ -18,9 +18,10 @@ class _$ProfileStateTearOff {
   }
 
 // ignore: unused_element
-  Loaded loaded({AppUser user}) {
+  Loaded loaded({AppUser user, List<Event> events}) {
     return Loaded(
       user: user,
+      events: events,
     );
   }
 
@@ -39,13 +40,13 @@ mixin _$ProfileState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(AppUser user),
+    @required Result loaded(AppUser user, List<Event> events),
     @required Result error(String error),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(AppUser user),
+    Result loaded(AppUser user, List<Event> events),
     Result error(String error),
     @required Result orElse(),
   });
@@ -112,7 +113,7 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(AppUser user),
+    @required Result loaded(AppUser user, List<Event> events),
     @required Result error(String error),
   }) {
     assert(loading != null);
@@ -125,7 +126,7 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(AppUser user),
+    Result loaded(AppUser user, List<Event> events),
     Result error(String error),
     @required Result orElse(),
   }) {
@@ -172,7 +173,7 @@ abstract class Loading implements ProfileState {
 abstract class $LoadedCopyWith<$Res> {
   factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) then) =
       _$LoadedCopyWithImpl<$Res>;
-  $Res call({AppUser user});
+  $Res call({AppUser user, List<Event> events});
 
   $AppUserCopyWith<$Res> get user;
 }
@@ -188,9 +189,11 @@ class _$LoadedCopyWithImpl<$Res> extends _$ProfileStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object user = freezed,
+    Object events = freezed,
   }) {
     return _then(Loaded(
       user: user == freezed ? _value.user : user as AppUser,
+      events: events == freezed ? _value.events : events as List<Event>,
     ));
   }
 
@@ -206,14 +209,16 @@ class _$LoadedCopyWithImpl<$Res> extends _$ProfileStateCopyWithImpl<$Res>
 }
 
 class _$Loaded implements Loaded {
-  const _$Loaded({this.user});
+  const _$Loaded({this.user, this.events});
 
   @override
   final AppUser user;
+  @override
+  final List<Event> events;
 
   @override
   String toString() {
-    return 'ProfileState.loaded(user: $user)';
+    return 'ProfileState.loaded(user: $user, events: $events)';
   }
 
   @override
@@ -221,12 +226,16 @@ class _$Loaded implements Loaded {
     return identical(this, other) ||
         (other is Loaded &&
             (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)));
+                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.events, events) ||
+                const DeepCollectionEquality().equals(other.events, events)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(events);
 
   @override
   $LoadedCopyWith<Loaded> get copyWith =>
@@ -236,26 +245,26 @@ class _$Loaded implements Loaded {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(AppUser user),
+    @required Result loaded(AppUser user, List<Event> events),
     @required Result error(String error),
   }) {
     assert(loading != null);
     assert(loaded != null);
     assert(error != null);
-    return loaded(user);
+    return loaded(user, events);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(AppUser user),
+    Result loaded(AppUser user, List<Event> events),
     Result error(String error),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (loaded != null) {
-      return loaded(user);
+      return loaded(user, events);
     }
     return orElse();
   }
@@ -290,9 +299,10 @@ class _$Loaded implements Loaded {
 }
 
 abstract class Loaded implements ProfileState {
-  const factory Loaded({AppUser user}) = _$Loaded;
+  const factory Loaded({AppUser user, List<Event> events}) = _$Loaded;
 
   AppUser get user;
+  List<Event> get events;
   $LoadedCopyWith<Loaded> get copyWith;
 }
 
@@ -351,7 +361,7 @@ class _$Error implements Error {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(AppUser user),
+    @required Result loaded(AppUser user, List<Event> events),
     @required Result error(String error),
   }) {
     assert(loading != null);
@@ -364,7 +374,7 @@ class _$Error implements Error {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(AppUser user),
+    Result loaded(AppUser user, List<Event> events),
     Result error(String error),
     @required Result orElse(),
   }) {

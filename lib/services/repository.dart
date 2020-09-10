@@ -211,6 +211,21 @@ class AppRepository {
     }
   }
 
+  Future<List<Event>> fecthMyEvents({String uid}) async {
+    try {
+      List<Event> myevents = [];
+      final result = await firestore.collection('users/$uid/myevents').get();
+      result.docs.forEach((e) {
+        Event eve = Event.fromJson(e.data());
+        myevents.add(eve);
+      });
+
+      return myevents;
+    } catch (e) {
+      return [];
+    }
+  }
+
   Future<bool> confirmRegistration(String eid, String uid) async {
     try {
       final DocumentReference user = firestore.collection('users').doc(uid);

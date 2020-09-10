@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dsckssem/views/auth/auth.vm.dart';
@@ -79,7 +81,16 @@ class ProfileView extends StatelessWidget {
                       SizedBox(
                         width: 0.03.hp,
                       ),
-                      MyEventCard(),
+                      ListView.builder(
+                        itemCount: data.events.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (_, index) {
+                          return MyEventCard(
+                            event: data.events[index],
+                          );
+                        },
+                      ),
                       FlatButton(
                         onPressed: () async {
                           await context.read<AuthVM>().signOut();
@@ -111,23 +122,24 @@ class MyEventCard extends StatelessWidget {
     return Card(
       color: Colors.redAccent,
       child: ListTile(
-        leading: Container(
-          height: 0.05.hp,
-          width: 0.1.wp,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  "assets/color_icon.png",
-                ),
-                fit: BoxFit.contain),
-          ),
+        leading: CachedNetworkImage(
+          imageUrl: event.imageUrl,
+          imageBuilder: (_, img) {
+            return Container(
+              height: 0.05.hp,
+              width: 0.1.wp,
+              decoration: BoxDecoration(
+                image: DecorationImage(image: img, fit: BoxFit.contain),
+              ),
+            );
+          },
         ),
         title: AutoSizeText(
-          "Welcome to DSC KSSEM",
+          event.name,
           style: Theme.of(context).textTheme.bodyText1,
         ),
         subtitle: Text(
-          "250 went to this event",
+          "${event.attendees} went to this event",
           style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 12),
         ),
       ),

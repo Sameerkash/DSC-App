@@ -62,23 +62,25 @@ class _ScannerViewState extends State<ScannerView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: () {
-                    scanQR();
-                    context.read<ScannerVM>().newScan();
-                  },
-                  child: Text("Start QR scan"),
-                ),
-                if (_scanBarcode.isNotEmpty)
-                  RaisedButton(
-                    onPressed: () async {
+                  onPressed: () async {
+                    await scanQR();
+                    if (_scanBarcode.isNotEmpty &&
+                        _scanBarcode != 'Failed to get platform version.') {
                       final qr = _scanBarcode.split(" ");
                       await confirmAttendee(qr);
                       setState(() {
                         _scanBarcode = "";
                       });
-                    },
-                    child: Text("Verify"),
-                  ),
+                    }
+                    context.read<ScannerVM>().newScan();
+                  },
+                  child: Text("Start QR scan"),
+                ),
+                // if (_scanBarcode.isNotEmpty)
+                //   RaisedButton(
+                //     onPressed: () async {},
+                //     child: Text("Verify"),
+                //   ),
               ],
             ),
           );
