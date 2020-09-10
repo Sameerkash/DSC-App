@@ -61,6 +61,7 @@ dependencies:
   google_sign_in: ^4.5.3
   firebase_core: ^0.5.0
   flutter_form_builder: ^3.13.4
+  qr_flutter: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -111,3 +112,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+

@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/event.dart';
+import '../models/user.dart';
 import '../views/admin/event.form.view.dart';
 import '../views/admin/manage.events.view.dart';
 import '../views/app.widget.dart';
@@ -55,6 +56,7 @@ class Router extends RouterBase {
         builder: (context) => EventDetailView(
           key: args.key,
           event: args.event,
+          user: args.user,
         ),
         settings: data,
       );
@@ -91,10 +93,11 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushEventDetailView({
     Key key,
     Event event,
+    AppUser user,
   }) =>
       push<dynamic>(
         Routes.eventDetailView,
-        arguments: EventDetailViewArguments(key: key, event: event),
+        arguments: EventDetailViewArguments(key: key, event: event, user: user),
       );
 
   Future<dynamic> pushManageEventsView() =>
@@ -120,7 +123,8 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
 class EventDetailViewArguments {
   final Key key;
   final Event event;
-  EventDetailViewArguments({this.key, this.event});
+  final AppUser user;
+  EventDetailViewArguments({this.key, this.event, this.user});
 }
 
 /// EventForm arguments holder class

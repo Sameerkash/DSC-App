@@ -1,20 +1,28 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import 'package:dsckssem/models/user.dart';
+import 'package:dsckssem/widgets/bottomSheet.dart';
+
 import '../../models/event.dart';
 
-class EventDetailView extends StatelessWidget {
+class EventDetailView extends HookWidget {
   final Event event;
+  final AppUser user;
   const EventDetailView({
     Key key,
     this.event,
+    this.user,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var isConfirmed = useState(false);
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -29,12 +37,15 @@ class EventDetailView extends StatelessWidget {
                 centerTitle: true,
                 title: AutoSizeText(
                   "${event.name}",
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline2,
                   maxLines: 1,
                 ),
-                background: CachedNetworkImage(
-                  imageUrl: event.imageUrl,
-                  fit: BoxFit.cover,
+                background: Hero(
+                  tag: event.eid,
+                  child: CachedNetworkImage(
+                    imageUrl: event.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             )
@@ -98,7 +109,10 @@ class EventDetailView extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     color: Color(int.tryParse(event.secondaryColor)),
-                    onPressed: () {},
+                    onPressed: () {
+                      resgisterSheet(context,
+                          event: event, isConfirmed: isConfirmed, user: user);
+                    },
                     child: Text(
                       "Register",
                       style: Theme.of(context).textTheme.headline2,

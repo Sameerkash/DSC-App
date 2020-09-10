@@ -32,6 +32,7 @@ class EventsView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return EventCard(
                               event: data.events[index],
+                              user: data.user,
                             );
                           },
                           options: CarouselOptions(

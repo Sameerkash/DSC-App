@@ -18,9 +18,10 @@ class _$EventStateTearOff {
   }
 
 // ignore: unused_element
-  Loaded loaded({List<Event> events = const []}) {
+  Loaded loaded({List<Event> events = const [], AppUser user}) {
     return Loaded(
       events: events,
+      user: user,
     );
   }
 
@@ -39,13 +40,13 @@ mixin _$EventState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Event> events),
+    @required Result loaded(List<Event> events, AppUser user),
     @required Result error(String error),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Event> events),
+    Result loaded(List<Event> events, AppUser user),
     Result error(String error),
     @required Result orElse(),
   });
@@ -118,7 +119,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Event> events),
+    @required Result loaded(List<Event> events, AppUser user),
     @required Result error(String error),
   }) {
     assert(loading != null);
@@ -131,7 +132,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Event> events),
+    Result loaded(List<Event> events, AppUser user),
     Result error(String error),
     @required Result orElse(),
   }) {
@@ -178,7 +179,9 @@ abstract class Loading implements EventState {
 abstract class $LoadedCopyWith<$Res> {
   factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) then) =
       _$LoadedCopyWithImpl<$Res>;
-  $Res call({List<Event> events});
+  $Res call({List<Event> events, AppUser user});
+
+  $AppUserCopyWith<$Res> get user;
 }
 
 class _$LoadedCopyWithImpl<$Res> extends _$EventStateCopyWithImpl<$Res>
@@ -192,23 +195,37 @@ class _$LoadedCopyWithImpl<$Res> extends _$EventStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object events = freezed,
+    Object user = freezed,
   }) {
     return _then(Loaded(
       events: events == freezed ? _value.events : events as List<Event>,
+      user: user == freezed ? _value.user : user as AppUser,
     ));
+  }
+
+  @override
+  $AppUserCopyWith<$Res> get user {
+    if (_value.user == null) {
+      return null;
+    }
+    return $AppUserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
 class _$Loaded with DiagnosticableTreeMixin implements Loaded {
-  const _$Loaded({this.events = const []}) : assert(events != null);
+  const _$Loaded({this.events = const [], this.user}) : assert(events != null);
 
   @JsonKey(defaultValue: const [])
   @override
   final List<Event> events;
+  @override
+  final AppUser user;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'EventState.loaded(events: $events)';
+    return 'EventState.loaded(events: $events, user: $user)';
   }
 
   @override
@@ -216,7 +233,8 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'EventState.loaded'))
-      ..add(DiagnosticsProperty('events', events));
+      ..add(DiagnosticsProperty('events', events))
+      ..add(DiagnosticsProperty('user', user));
   }
 
   @override
@@ -224,12 +242,16 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
     return identical(this, other) ||
         (other is Loaded &&
             (identical(other.events, events) ||
-                const DeepCollectionEquality().equals(other.events, events)));
+                const DeepCollectionEquality().equals(other.events, events)) &&
+            (identical(other.user, user) ||
+                const DeepCollectionEquality().equals(other.user, user)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(events);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(events) ^
+      const DeepCollectionEquality().hash(user);
 
   @override
   $LoadedCopyWith<Loaded> get copyWith =>
@@ -239,26 +261,26 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Event> events),
+    @required Result loaded(List<Event> events, AppUser user),
     @required Result error(String error),
   }) {
     assert(loading != null);
     assert(loaded != null);
     assert(error != null);
-    return loaded(events);
+    return loaded(events, user);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Event> events),
+    Result loaded(List<Event> events, AppUser user),
     Result error(String error),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (loaded != null) {
-      return loaded(events);
+      return loaded(events, user);
     }
     return orElse();
   }
@@ -293,9 +315,10 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
 }
 
 abstract class Loaded implements EventState {
-  const factory Loaded({List<Event> events}) = _$Loaded;
+  const factory Loaded({List<Event> events, AppUser user}) = _$Loaded;
 
   List<Event> get events;
+  AppUser get user;
   $LoadedCopyWith<Loaded> get copyWith;
 }
 
@@ -362,7 +385,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result loading(),
-    @required Result loaded(List<Event> events),
+    @required Result loaded(List<Event> events, AppUser user),
     @required Result error(String error),
   }) {
     assert(loading != null);
@@ -375,7 +398,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result loading(),
-    Result loaded(List<Event> events),
+    Result loaded(List<Event> events, AppUser user),
     Result error(String error),
     @required Result orElse(),
   }) {

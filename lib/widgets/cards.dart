@@ -1,18 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dsckssem/models/event.dart';
-import 'package:dsckssem/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:auto_route/auto_route.dart';
+import 'package:dsckssem/models/event.dart';
+import 'package:dsckssem/models/user.dart';
+import 'package:dsckssem/routes/router.gr.dart';
 
-/// Event card to display [Event]s
 class EventCard extends StatelessWidget {
   final Event event;
+  final AppUser user;
   const EventCard({
     Key key,
     this.event,
+    this.user,
   }) : super(key: key);
 
   @override
@@ -35,19 +37,22 @@ class EventCard extends StatelessWidget {
                   height: 1,
                   thickness: 2,
                 ),
-                CachedNetworkImage(
-                  imageUrl: event.imageUrl,
-                  imageBuilder: (_, imageProvider) {
-                    return Container(
-                      padding: EdgeInsets.all(3),
-                      height: 0.35.hp,
-                      // color: Colors.grey,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    );
-                  },
+                Hero(
+                  tag: event.eid,
+                  child: CachedNetworkImage(
+                    imageUrl: event.imageUrl,
+                    imageBuilder: (_, imageProvider) {
+                      return Container(
+                        padding: EdgeInsets.all(3),
+                        height: 0.35.hp,
+                        // color: Colors.grey,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: 0.02.hp,
@@ -70,8 +75,13 @@ class EventCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15)),
                   color: Color(int.tryParse(event.secondaryColor)),
                   onPressed: () {
-                    context.rootNavigator.push('/event-detail-view',
-                        arguments: EventDetailViewArguments(event: event));
+                    context.rootNavigator.push(
+                      '/event-detail-view',
+                      arguments: EventDetailViewArguments(
+                        user: user,
+                        event: event,
+                      ),
+                    );
                   },
                   child: Text(
                     "Learn More",

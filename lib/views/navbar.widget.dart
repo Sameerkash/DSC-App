@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:dsckssem/models/user.dart';
-
 import 'admin/admin.view.dart';
-import 'auth/auth.view.dart';
 import 'events/events.view.dart';
 import 'info/info.view.dart';
 import 'profile/profile.view.dart';
@@ -32,14 +29,16 @@ class _NavBarPageState extends State<NavBarPage> {
   void setNav() {
     if (widget.isAdmin) {
       screens = [
-        EventsView(),
+        EventsView(
+        ),
         InfoView(),
         ProfileView(),
         AdminView(),
       ];
     } else {
       screens = [
-        EventsView(),
+        EventsView(
+        ),
         InfoView(),
         ProfileView(),
       ];
