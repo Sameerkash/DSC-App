@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../routes/router.gr.dart';
-import '../../widgets/cards.dart';
+import '../../../routes/router.gr.dart';
+import '../../../widgets/cards.dart';
 import 'manage.event.vm.dart';
 
 class ManageEventsView extends StatelessWidget {

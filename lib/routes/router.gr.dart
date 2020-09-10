@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 
 import '../models/event.dart';
 import '../models/user.dart';
-import '../views/admin/event.form.view.dart';
-import '../views/admin/manage.events.view.dart';
+import '../views/admin/events/event.form.view.dart';
+import '../views/admin/events/manage.events.view.dart';
+import '../views/admin/scanner/scanner.view.dart';
 import '../views/app.widget.dart';
 import '../views/events/event_details.view.dart';
 
@@ -22,11 +23,13 @@ class Routes {
   static const String eventDetailView = '/event-detail-view';
   static const String manageEventsView = '/manage-events-view';
   static const String eventForm = '/event-form';
+  static const String scannerView = '/scanner-view';
   static const all = <String>{
     appWidget,
     eventDetailView,
     manageEventsView,
     eventForm,
+    scannerView,
   };
 }
 
@@ -38,6 +41,7 @@ class Router extends RouterBase {
     RouteDef(Routes.eventDetailView, page: EventDetailView),
     RouteDef(Routes.manageEventsView, page: ManageEventsView),
     RouteDef(Routes.eventForm, page: EventForm),
+    RouteDef(Routes.scannerView, page: ScannerView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -80,6 +84,12 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    ScannerView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ScannerView(),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -113,6 +123,8 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
         arguments:
             EventFormArguments(key: key, isEditing: isEditing, event: event),
       );
+
+  Future<dynamic> pushScannerView() => push<dynamic>(Routes.scannerView);
 }
 
 /// ************************************************************************

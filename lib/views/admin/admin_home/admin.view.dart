@@ -28,7 +28,9 @@ class AdminView extends StatelessWidget {
               AdminCard(
                 title: "Scan QR Code",
                 icon: Icons.calendar_today,
-                onTap: () {},
+                onTap: () {
+                  context.rootNavigator.push('/scanner-view');
+                },
               ),
               AdminCard(
                 title: "FeedBack",

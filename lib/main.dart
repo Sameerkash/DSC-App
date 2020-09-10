@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'routes/router.gr.dart';
 import 'services/repository.dart';
 import 'utils/theme.util.dart';
-import 'views/admin/manage.event.vm.dart';
+import 'views/admin/events/manage.event.vm.dart';
 import 'views/auth/auth.vm.dart';
 import 'views/events/event.vm.dart';
 

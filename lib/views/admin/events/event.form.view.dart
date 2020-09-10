@@ -6,9 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/event.dart';
-import '../../widgets/dailog.dart';
-import '../events/event.vm.dart';
+import '../../../models/event.dart';
+import '../../../widgets/dailog.dart';
+import '../../events/event.vm.dart';
 import 'manage.event.vm.dart';
 
 class EventForm extends StatefulWidget {

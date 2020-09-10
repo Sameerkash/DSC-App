@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../models/event.dart';
-import '../../services/repository.dart';
+import '../../../models/event.dart';
+import '../../../services/repository.dart';
 
 part 'manage.event.vm.freezed.dart';
 
