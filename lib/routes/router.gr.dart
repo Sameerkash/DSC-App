@@ -86,7 +86,7 @@ class Router extends RouterBase {
     },
     ScannerView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => ScannerView(),
+        builder: (context) => ScannerView().wrappedRoute(context),
         settings: data,
       );
     },

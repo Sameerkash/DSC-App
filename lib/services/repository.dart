@@ -210,4 +210,31 @@ class AppRepository {
       return [];
     }
   }
+
+  Future<bool> confirmRegistration(String eid, String uid) async {
+    final DocumentReference user = firestore.collection('users').doc(uid);
+    final DocumentReference event = firestore.collection('events').doc(eid);
+
+    firestore.runTransaction((transaction) async {
+      final userSnapshot = await transaction.get(user);
+      final eventSnapshot = await transaction.get(event);
+
+      if (!userSnapshot.exists || !eventSnapshot.exists) {
+        return false;
+      }
+
+      await firestore
+          .collection('events/$eid/attendees')
+          .doc(user.id)
+          .set(userSnapshot.data());
+
+      await firestore
+          .collection('users/$uid/myevens')
+          .doc(eid)
+          .set(eventSnapshot.data());
+      return true;
+    });
+
+    return false;
+  }
 }

@@ -18,7 +18,7 @@
 
 **Admin**
 - [x] Create,update and delete events 
-- [ ] Verify QR code 
+- [x] Verify QR code 
 - [ ] Check Attendess list
 - [ ] Issue Badges to users
 - [ ] Search through users list
