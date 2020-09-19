@@ -6,17 +6,17 @@
 
 **Setup for your chapter**
 
-- Star this proejct 😜, Clone it.
-- Setup a firebase acoount and add an android app, add debug SHA and release SHA
-- Navigate to `lib/views/auth/authView.dart` and Chnage the name to your chapter name
-- Navigate to `lib/explore/explore.view.dart` and Chnage 'DSC KSSEM' to your chapter name
-- Navigate to `lib/explore/explore.view.dart` and change `youtubeUrl` and `chapterUrl` to your chapter links
+- Star this project 😜, Clone it.
+- Setup a firebase account and add an android app, add debug SHA and release SHA
+- Navigate to `lib/views/auth/authView.dart` and Change the name to your chapter name
+- Navigate to `lib/explore/explore.view.dart` and Change 'DSC KSSEM' to your chapter name
+- Navigate to `lib/explore/explore.view.dart` and Change `youtubeUrl` and `chapterUrl` to your chapter links
 
   And That's it!, You are all setup to give your chapter a personalized DSC experince with your app 🚀
 
 **Features**
 
-- [x] Events view displaying future events
+- [x] View Events page, which displays future events
 - [x] SignUp users using google singin
 - [x] Generate QR code on event geistration and verify it on venue
 - [x] Explore page for connecting users with the DSC chapter page and displaying past events pictures and videos
@@ -31,3 +31,14 @@
 - [x] Manage users
 - [ ] Check Attendess list
 - [ ] Issue Badges to users
+
+
+**Contributing**
+
+Contributions are welcome! 
+
+* Fork it 🍴
+* Clone it ⬇
+* Chekout to a new branch 🔀
+* Make your changes 👩‍💻
+* Submit a Pull Request ⬆
