@@ -8,10 +8,15 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> with AutomaticKeepAliveClientMixin {
-  _launchURL(BuildContext context) async {
+  static const String chapterUrl =
+      'https://dsc.community.dev/k-s-school-of-engineering-and-management/';
+  static const String youtubeUrl =
+      'https://www.youtube.com/channel/UCOFKlS2F_j1TUkoG6xSVY_w';
+
+  _launchURL(BuildContext context, String url) async {
     try {
       await launch(
-        'https://dsc.community.dev/k-s-school-of-engineering-and-management/',
+        url,
         option: CustomTabsOption(
           enableInstantApps: true,
           toolbarColor: Colors.black,
@@ -39,37 +44,19 @@ class _ExploreState extends State<Explore> with AutomaticKeepAliveClientMixin {
       child: Scaffold(
           body: Column(
         children: [
-          Card(
+          ExploreCard(
+            title: "Youtube",
             color: Colors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Container(
-              height: 0.1.hp,
-              child: Center(
-                child: Text('YouTube',
-                    style: Theme.of(context).textTheme.headline1),
-              ),
-            ),
-          ),
-          GestureDetector(
             onTap: () {
-              _launchURL(context);
+              _launchURL(context, youtubeUrl);
             },
-            child: Card(
-              color: Colors.white70,
-              borderOnForeground: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Container(
-                height: 0.1.hp,
-                child: Center(
-                  child: Text('DSC KSSEM',
-                      style: Theme.of(context).textTheme.headline1),
-                ),
-              ),
-            ),
+          ),
+          ExploreCard(
+            title: "DSC KSSEM",
+            color: Colors.white70,
+            onTap: () {
+              _launchURL(context, chapterUrl);
+            },
           )
         ],
       )),
@@ -78,6 +65,38 @@ class _ExploreState extends State<Explore> with AutomaticKeepAliveClientMixin {
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class ExploreCard extends StatelessWidget {
+  final String title;
+  final Color color;
+  final Function onTap;
+  const ExploreCard({
+    Key key,
+    this.title,
+    this.color,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: color,
+        borderOnForeground: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          height: 0.1.hp,
+          child: Center(
+            child: Text(title, style: Theme.of(context).textTheme.headline1),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 //  Builder(
