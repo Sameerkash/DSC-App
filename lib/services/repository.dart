@@ -306,4 +306,14 @@ class AppRepository {
       print(e);
     }
   }
+
+  Future<bool> makeAdmin({bool value, String uid}) async {
+    try {
+      await firestore.collection('users').doc(uid).update({"isAdmin": value});
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

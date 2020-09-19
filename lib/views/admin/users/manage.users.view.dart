@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dsckssem/widgets/dailog.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
 import 'package:dsckssem/models/user.dart';
@@ -54,7 +56,7 @@ class ManageUsersView extends StatelessWidget implements AutoRouteWrapper {
   }
 }
 
-class UserCard extends StatelessWidget {
+class UserCard extends HookWidget {
   final AppUser user;
   const UserCard({
     Key key,
@@ -63,6 +65,7 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isAdmin = useState(user.isAdmin);
     return Padding(
       padding: EdgeInsets.all(0.05.wp),
       child: Card(
@@ -114,20 +117,77 @@ class UserCard extends StatelessWidget {
                     children: [
                       IconButton(
                         icon: Icon(
-                          Icons.delete_forever,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.flag,
+                          MaterialCommunityIcons.medal,
                           color: Colors.black,
                         ),
                         onPressed: () {},
-                      )
+                      ),
+                      if (isAdmin.value)
+                        IconButton(
+                          icon: Icon(
+                            MaterialCommunityIcons.account_check,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            final res = await actionDialog(
+                              context,
+                              title: "Sure you want to Proceed ?",
+                              subtitle: "Remove from Admin",
+                            );
+                            if (res) {
+                              showBlockingDialog(context);
+
+                              await context
+                                  .read<ManageUserVM>()
+                                  .makeUserAdmin(value: false, uid: user.uid);
+                              isAdmin.value = false;
+                              context.rootNavigator.pop();
+                            }
+                          },
+                        ),
+                      if (!isAdmin.value)
+                        IconButton(
+                          icon: Icon(
+                            MaterialCommunityIcons.account,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            final res = await actionDialog(
+                              context,
+                              title: "Sure you want to Proceed ?",
+                              subtitle: "Make this person Admin",
+                            );
+                            if (res) {
+                              showBlockingDialog(context);
+
+                              await context
+                                  .read<ManageUserVM>()
+                                  .makeUserAdmin(value: true, uid: user.uid);
+                              isAdmin.value = true;
+                              context.rootNavigator.pop();
+                            }
+                          },
+                        ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.delete_forever,
+                          color: Colors.black,
+                        ),
+                        onPressed: () async {
+                          final res = await actionDialog(
+                            context,
+                            title: "Sure you want to Delete User?",
+                            subtitle: "This Action cannot be Undone",
+                          );
+                          if (res) {
+                            showBlockingDialog(context);
+                            context
+                                .read<ManageUserVM>()
+                                .deleteUser(uid: user.uid, user: user);
+                            context.rootNavigator.pop();
+                          }
+                        },
+                      ),
                     ],
                   )
                 ],

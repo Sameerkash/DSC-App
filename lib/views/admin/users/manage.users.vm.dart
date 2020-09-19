@@ -43,4 +43,9 @@ class ManageUserVM extends StateNotifier<ManageUserState> with LocatorMixin {
       state = ManageUserState.loaded(users: newUsers);
     }
   }
+
+  Future<void> makeUserAdmin({bool value, String uid}) async {
+    
+    await read<AppRepository>().makeAdmin(uid: uid, value: value);
+  }
 }

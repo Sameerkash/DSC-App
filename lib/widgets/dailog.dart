@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-Future<bool> deleteDialog(BuildContext context) async {
+Future<bool> actionDialog(BuildContext context,
+    {String title, String subtitle}) async {
   final res = await showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
         title: Text(
-          "Sure you want to delete this Event?",
+          title,
           style: Theme.of(context).textTheme.bodyText2,
         ),
         content: Text(
-          "Action cannot be undone",
+          subtitle,
           style: Theme.of(context).textTheme.bodyText1,
         ),
         actions: [

@@ -39,14 +39,18 @@ class ManageEventsView extends StatelessWidget {
                                 );
                               },
                               onDelete: () async {
-                                final res = await deleteDialog(context);
+                                final res = await actionDialog(
+                                  context,
+                                  title: "Sure you want to delete this Event?",
+                                  subtitle: "Action cannot be undone",
+                                );
                                 if (res) {
                                   showBlockingDialog(context);
 
                                   await context
                                       .read<ManagaeEventVM>()
                                       .deleteEvent(event: data.event[index]);
-                                      
+
                                   await context.read<EventVM>().getEvents();
                                   context.rootNavigator.pop();
                                 }

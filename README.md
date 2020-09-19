@@ -21,7 +21,7 @@
 - [x] Verify QR code 
 - [ ] Check Attendess list
 - [ ] Issue Badges to users
-- [ ] Search through users list
+- [X] Manage users
 
 
 

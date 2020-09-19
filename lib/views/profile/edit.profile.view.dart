@@ -1,11 +1,12 @@
-import 'package:dsckssem/models/user.dart';
-import 'package:dsckssem/views/profile/profile.vm.dart';
-import 'package:dsckssem/widgets/dailog.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/user.dart';
+import '../../widgets/dailog.dart';
+import 'profile.vm.dart';
 
 class EditProfile extends StatefulWidget {
   final AppUser user;
