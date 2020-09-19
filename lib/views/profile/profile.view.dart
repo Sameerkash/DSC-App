@@ -97,12 +97,7 @@ class ProfileView extends StatelessWidget {
                           );
                         },
                       ),
-                      FlatButton(
-                        onPressed: () async {
-                          await context.read<AuthVM>().signOut();
-                        },
-                        child: Text("sign out"),
-                      )
+                    
                     ],
                   ),
                 ),

@@ -63,6 +63,8 @@ class _ExploreState extends State<Explore> with AutomaticKeepAliveClientMixin {
           ),
           ExploreCard(
             title: "DSC KSSEM",
+
+            /// change to your chapter name
             color: Colors.white70,
             onTap: () {
               _launchURL(context, chapterUrl);

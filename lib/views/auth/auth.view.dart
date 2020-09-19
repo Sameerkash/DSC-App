@@ -44,7 +44,7 @@ class AutView extends StatelessWidget {
                     ),
                     Expanded(
                       child: AutoSizeText(
-                        "KS School of Engineering and Management",
+                        "KS School of Engineering and Management", /// Change to your chapter name
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[300]),

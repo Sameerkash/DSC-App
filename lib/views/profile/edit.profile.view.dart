@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user.dart';
 import '../../widgets/dailog.dart';
+import '../auth/auth.vm.dart';
 import 'profile.vm.dart';
 
 class EditProfile extends StatefulWidget {
@@ -119,7 +121,29 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 0.2.hp,
+                    ),
+                    FlatButton.icon(
+                      label: Text("Logout"),
+                      icon: Icon(
+                        MaterialCommunityIcons.logout,
+                        color: Colors.white,
+                      ),
+                      onPressed: () async {
+                        final res = await actionDialog(
+                          context,
+                          title: "Sure you want to Proceed ?",
+                          subtitle: "You will be Logged out",
+                        );
+                        if (res) {
+                          context.rootNavigator.pop();
+
+                          await context.read<AuthVM>().signOut();
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
