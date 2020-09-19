@@ -45,13 +45,4 @@ Contributions are welcome!
 
 **Screenshots**
 
-  <img src="./screenshots/splash.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/E1.jpg" alt="Splash" width="200" height="400"/> 
-  <img src="./screenshots/ed.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/E2.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/qr.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/chapter.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/profile.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/admin.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/events.jpg" alt="Splash" width="200" height="400"/>
-  <img src="./screenshots/eform.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/splash.jpg" alt="Splash" width="200" height="400"/> <img src="./screenshots/E1.jpg" alt="Splash" width="200" height="400"/> <img src="./screenshots/ed.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/E2.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/qr.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/chapter.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/profile.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/admin.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/events.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/eform.jpg" alt="Splash" width="200" height="400"/>
