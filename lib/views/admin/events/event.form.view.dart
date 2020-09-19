@@ -199,8 +199,6 @@ class _EventFormState extends State<EventForm> {
                     borderRadius: BorderRadius.circular(20)),
                 color: Colors.deepPurple,
                 onPressed: () async {
-                  print("called form");
-
                   if (_fbKey.currentState.saveAndValidate()) {
                     showBlockingDialog(context);
                     if (widget.isEditing) {

@@ -1,9 +1,9 @@
-import 'package:dsckssem/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../../models/event.dart';
+import '../../models/user.dart';
 import '../../services/repository.dart';
 
 part 'event.vm.freezed.dart';

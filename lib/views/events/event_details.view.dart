@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-
 import 'package:provider/provider.dart';
-import 'package:dsckssem/models/user.dart';
-import 'package:dsckssem/widgets/bottomSheet.dart';
 
 import '../../models/event.dart';
+import '../../models/user.dart';
+import '../../widgets/bottomSheet.dart';
 import 'event.vm.dart';
 
 class EventDetailView extends StatefulHookWidget {

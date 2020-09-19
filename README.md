@@ -7,6 +7,7 @@
 **Setup for your chapter**
 
 - Star this project 😜, Clone it.
+- For a different package name, create a New Flutter Project and copy the lib folder
 - Setup a firebase account and add an android app, add debug SHA and release SHA
 - Navigate to `lib/views/auth/authView.dart` and Change the name to your chapter name
 - Navigate to `lib/explore/explore.view.dart` and Change 'DSC KSSEM' to your chapter name
@@ -32,13 +33,25 @@
 - [ ] Check Attendess list
 - [ ] Issue Badges to users
 
-
 **Contributing**
 
-Contributions are welcome! 
+Contributions are welcome!
 
-* Fork it 🍴
-* Clone it ⬇
-* Chekout to a new branch 🔀
-* Make your changes 👩‍💻
-* Submit a Pull Request ⬆
+- Fork it 🍴
+- Clone it ⬇
+- Chekout to a new branch 🔀
+- Make your changes 👩‍💻
+- Submit a Pull Request ⬆
+
+**Screenshots**
+
+  <img src="./screenshots/splash.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/E1.jpg" alt="Splash" width="200" height="400"/> 
+  <img src="./screenshots/ed.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/E2.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/qr.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/chapter.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/profile.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/admin.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/events.jpg" alt="Splash" width="200" height="400"/>
+  <img src="./screenshots/eform.jpg" alt="Splash" width="200" height="400"/>
