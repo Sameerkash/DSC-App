@@ -1,12 +1,11 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dsckssem/views/auth/auth.vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/event.dart';
+import '../auth/auth.vm.dart';
 import 'profile.vm.dart';
 
 class ProfileView extends StatelessWidget {
@@ -32,9 +31,7 @@ class ProfileView extends StatelessWidget {
                                 style: Theme.of(context).textTheme.headline1),
                             IconButton(
                               icon: Icon(Icons.settings),
-                              onPressed: () {
-                                
-                              },
+                              onPressed: () {},
                             )
                           ],
                         ),
@@ -121,7 +118,7 @@ class MyEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.redAccent,
+      color: Color(int.tryParse(event.color)),
       child: ListTile(
         leading: CachedNetworkImage(
           imageUrl: event.imageUrl,

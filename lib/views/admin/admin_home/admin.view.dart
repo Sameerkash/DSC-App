@@ -23,7 +23,9 @@ class AdminView extends StatelessWidget {
               AdminCard(
                 title: "Manage Users",
                 icon: Icons.portrait,
-                onTap: () {},
+                onTap: () {
+                  context.rootNavigator.push('/manage-users-view');
+                },
               ),
               AdminCard(
                 title: "Scan QR Code",

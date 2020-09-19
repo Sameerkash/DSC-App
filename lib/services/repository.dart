@@ -266,4 +266,32 @@ class AppRepository {
       return false;
     }
   }
+
+  Future<List<AppUser>> serahcUser({String userName}) async {
+    try {
+      List<AppUser> users = [];
+
+      final result = await firestore
+          .collection('/users')
+          .where('userName', isGreaterThanOrEqualTo: userName)
+          .get();
+
+      result.docs.forEach((doc) {
+        AppUser u = AppUser.fromJson(doc.data());
+        users.add(u);
+      });
+
+      return users;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<void> deleteUser({String uid}) async {
+    try {
+      await firestore.collection('users').doc(uid).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
 }

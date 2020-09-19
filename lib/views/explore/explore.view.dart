@@ -43,7 +43,17 @@ class _ExploreState extends State<Explore> with AutomaticKeepAliveClientMixin {
     return SafeArea(
       child: Scaffold(
           body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
+          Padding(
+            padding: EdgeInsets.only(top: 0.02.hp, left: 0.05.wp),
+            child:
+                Text("Explore", style: Theme.of(context).textTheme.headline1),
+          ),
+          SizedBox(
+            width: 0.05.wp,
+          ),
           ExploreCard(
             title: "Youtube",
             color: Colors.red,

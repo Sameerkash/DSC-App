@@ -15,6 +15,7 @@ import '../models/user.dart';
 import '../views/admin/events/event.form.view.dart';
 import '../views/admin/events/manage.events.view.dart';
 import '../views/admin/scanner/scanner.view.dart';
+import '../views/admin/users/manage.users.view.dart';
 import '../views/app.widget.dart';
 import '../views/events/event_details.view.dart';
 
@@ -24,12 +25,14 @@ class Routes {
   static const String manageEventsView = '/manage-events-view';
   static const String eventForm = '/event-form';
   static const String scannerView = '/scanner-view';
+  static const String manageUsersView = '/manage-users-view';
   static const all = <String>{
     appWidget,
     eventDetailView,
     manageEventsView,
     eventForm,
     scannerView,
+    manageUsersView,
   };
 }
 
@@ -42,6 +45,7 @@ class Router extends RouterBase {
     RouteDef(Routes.manageEventsView, page: ManageEventsView),
     RouteDef(Routes.eventForm, page: EventForm),
     RouteDef(Routes.scannerView, page: ScannerView),
+    RouteDef(Routes.manageUsersView, page: ManageUsersView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -90,6 +94,12 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    ManageUsersView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ManageUsersView().wrappedRoute(context),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -125,6 +135,9 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
       );
 
   Future<dynamic> pushScannerView() => push<dynamic>(Routes.scannerView);
+
+  Future<dynamic> pushManageUsersView() =>
+      push<dynamic>(Routes.manageUsersView);
 }
 
 /// ************************************************************************

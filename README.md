@@ -13,7 +13,7 @@
 - [x] Generate QR code on event geistration and verify it on venue
 - [ ] Gain Accurate insight on the details of Attendees. 
 - [ ] Issue Badges to attendees for registration or winning tasks during the event
-- [ ] Explore page for connecting users with the DSC chapter page and displaying past event pictures and videos
+- [x] Explore page for connecting users with the DSC chapter page and displaying past event pictures and videos
 - [x] Profile page for displaying user account, badges and accomplishments
 
 **Admin**
