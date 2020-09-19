@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -33,7 +32,9 @@ class ProfileView extends StatelessWidget {
                                 style: Theme.of(context).textTheme.headline1),
                             IconButton(
                               icon: Icon(Icons.settings),
-                              onPressed: () {},
+                              onPressed: () {
+                                
+                              },
                             )
                           ],
                         ),

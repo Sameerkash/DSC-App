@@ -1,10 +1,10 @@
+import 'package:dsckssem/views/explore/explore.view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'admin/admin_home/admin.view.dart';
 import 'events/events.view.dart';
-import 'info/info.view.dart';
 import 'profile/profile.view.dart';
 
 class NavBarPage extends StatefulWidget {
@@ -29,17 +29,15 @@ class _NavBarPageState extends State<NavBarPage> {
   void setNav() {
     if (widget.isAdmin) {
       screens = [
-        EventsView(
-        ),
-        InfoView(),
+        EventsView(),
+        Explore(),
         ProfileView(),
         AdminView(),
       ];
     } else {
       screens = [
-        EventsView(
-        ),
-        InfoView(),
+        EventsView(),
+        Explore(),
         ProfileView(),
       ];
     }
