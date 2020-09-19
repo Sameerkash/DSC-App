@@ -6,6 +6,7 @@ import '../views/admin/scanner/scanner.view.dart';
 import '../views/admin/users/manage.users.view.dart';
 import '../views/app.widget.dart';
 import '../views/events/event_details.view.dart';
+import '../views/profile/edit.profile.view.dart';
 
 @CupertinoAutoRouter(routes: <AutoRoute>[
   CupertinoRoute(page: AppWidget, initial: true),
@@ -14,5 +15,6 @@ import '../views/events/event_details.view.dart';
   CupertinoRoute(page: EventForm),
   CupertinoRoute(page: ScannerView),
   CupertinoRoute(page: ManageUsersView),
+  CupertinoRoute(page: EditProfile),
 ], generateNavigationHelperExtension: true)
 class $Router {}

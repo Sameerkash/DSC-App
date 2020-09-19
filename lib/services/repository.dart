@@ -294,4 +294,16 @@ class AppRepository {
       print(e);
     }
   }
+
+  Future<void> updateProfile({AppUser user}) async {
+    try {
+      await firestore.collection('users').doc(user.uid).update(user.toJson());
+
+      final result = await firestore.collection('users').doc(user.uid).get();
+
+      await _store.record(USERKEY).put(await _db, result.data(), merge: true);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

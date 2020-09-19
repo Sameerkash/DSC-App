@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dsckssem/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:auto_route/auto_route.dart';
 
 import '../../models/event.dart';
 import '../auth/auth.vm.dart';
@@ -31,7 +33,13 @@ class ProfileView extends StatelessWidget {
                                 style: Theme.of(context).textTheme.headline1),
                             IconButton(
                               icon: Icon(Icons.settings),
-                              onPressed: () {},
+                              onPressed: () {
+                                context.rootNavigator.push(
+                                  '/edit-profile',
+                                  arguments:
+                                      EditProfileArguments(user: data.user),
+                                );
+                              },
                             )
                           ],
                         ),

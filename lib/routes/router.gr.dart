@@ -18,6 +18,7 @@ import '../views/admin/scanner/scanner.view.dart';
 import '../views/admin/users/manage.users.view.dart';
 import '../views/app.widget.dart';
 import '../views/events/event_details.view.dart';
+import '../views/profile/edit.profile.view.dart';
 
 class Routes {
   static const String appWidget = '/';
@@ -26,6 +27,7 @@ class Routes {
   static const String eventForm = '/event-form';
   static const String scannerView = '/scanner-view';
   static const String manageUsersView = '/manage-users-view';
+  static const String editProfile = '/edit-profile';
   static const all = <String>{
     appWidget,
     eventDetailView,
@@ -33,6 +35,7 @@ class Routes {
     eventForm,
     scannerView,
     manageUsersView,
+    editProfile,
   };
 }
 
@@ -46,6 +49,7 @@ class Router extends RouterBase {
     RouteDef(Routes.eventForm, page: EventForm),
     RouteDef(Routes.scannerView, page: ScannerView),
     RouteDef(Routes.manageUsersView, page: ManageUsersView),
+    RouteDef(Routes.editProfile, page: EditProfile),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -100,6 +104,18 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    EditProfile: (data) {
+      final args = data.getArgs<EditProfileArguments>(
+        orElse: () => EditProfileArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => EditProfile(
+          key: args.key,
+          user: args.user,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -138,6 +154,15 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
 
   Future<dynamic> pushManageUsersView() =>
       push<dynamic>(Routes.manageUsersView);
+
+  Future<dynamic> pushEditProfile({
+    Key key,
+    AppUser user,
+  }) =>
+      push<dynamic>(
+        Routes.editProfile,
+        arguments: EditProfileArguments(key: key, user: user),
+      );
 }
 
 /// ************************************************************************
@@ -158,4 +183,11 @@ class EventFormArguments {
   final bool isEditing;
   final Event event;
   EventFormArguments({this.key, this.isEditing = false, this.event});
+}
+
+/// EditProfile arguments holder class
+class EditProfileArguments {
+  final Key key;
+  final AppUser user;
+  EditProfileArguments({this.key, this.user});
 }

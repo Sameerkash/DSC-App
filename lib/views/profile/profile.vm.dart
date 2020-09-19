@@ -31,4 +31,23 @@ class ProfileVM extends StateNotifier<ProfileState> with LocatorMixin {
 
     state = ProfileState.loaded(user: result, events: [...events]);
   }
+
+  Future<void> updateProfile(Map<String, dynamic> userForm) async {
+    final current = state;
+    if (current is Loaded) {
+      final AppUser newProfile = AppUser(
+        uid: current.user.uid,
+        isAdmin: current.user.isAdmin,
+        imageUrl: current.user.imageUrl,
+        email: current.user.email,
+        userName: userForm['name'],
+        phone: userForm['phone'],
+        usn: userForm['usn'].toUpperCase(),
+      );
+
+      await read<AppRepository>().updateProfile(user: newProfile);
+
+      await fetchProfile();
+    }
+  }
 }
