@@ -1,15 +1,16 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dsckssem/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sembast/sembast.dart';
 import 'package:path/path.dart' as path;
+import 'package:sembast/sembast.dart';
 
+import '../models/badge.dart';
 import '../models/event.dart';
+import '../models/user.dart';
 import 'database.dart';
 
 class AppRepository {
@@ -314,6 +315,25 @@ class AppRepository {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  Future<List<Badge>> getAllBadges() async {
+    try {
+      List<Badge> badges = [];
+
+      final res = await firestore.collection('badges').get();
+      print('res');
+
+      res.docs.forEach((d) {
+        final Badge b = Badge.fromJson(d.data());
+        badges.add(b);
+      });
+
+      return badges;
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
 }

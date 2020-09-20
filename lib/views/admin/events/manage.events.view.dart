@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dsckssem/views/events/event.vm.dart';
-import 'package:dsckssem/widgets/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../routes/router.gr.dart';
 import '../../../widgets/cards.dart';
+import '../../../widgets/dailog.dart';
+import '../../events/event.vm.dart';
 import 'manage.event.vm.dart';
 
 class ManageEventsView extends StatelessWidget {

@@ -23,6 +23,7 @@ class _$AppUserTearOff {
       String phone,
       String email,
       String imageUrl,
+      String department,
       bool isAdmin = false}) {
     return _AppUser(
       uid: uid,
@@ -31,6 +32,7 @@ class _$AppUserTearOff {
       phone: phone,
       email: email,
       imageUrl: imageUrl,
+      department: department,
       isAdmin: isAdmin,
     );
   }
@@ -46,6 +48,7 @@ mixin _$AppUser {
   String get phone;
   String get email;
   String get imageUrl;
+  String get department;
   bool get isAdmin;
 
   Map<String, dynamic> toJson();
@@ -62,6 +65,7 @@ abstract class $AppUserCopyWith<$Res> {
       String phone,
       String email,
       String imageUrl,
+      String department,
       bool isAdmin});
 }
 
@@ -80,6 +84,7 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
     Object phone = freezed,
     Object email = freezed,
     Object imageUrl = freezed,
+    Object department = freezed,
     Object isAdmin = freezed,
   }) {
     return _then(_value.copyWith(
@@ -89,6 +94,8 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
       phone: phone == freezed ? _value.phone : phone as String,
       email: email == freezed ? _value.email : email as String,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
+      department:
+          department == freezed ? _value.department : department as String,
       isAdmin: isAdmin == freezed ? _value.isAdmin : isAdmin as bool,
     ));
   }
@@ -105,6 +112,7 @@ abstract class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String phone,
       String email,
       String imageUrl,
+      String department,
       bool isAdmin});
 }
 
@@ -124,6 +132,7 @@ class __$AppUserCopyWithImpl<$Res> extends _$AppUserCopyWithImpl<$Res>
     Object phone = freezed,
     Object email = freezed,
     Object imageUrl = freezed,
+    Object department = freezed,
     Object isAdmin = freezed,
   }) {
     return _then(_AppUser(
@@ -133,6 +142,8 @@ class __$AppUserCopyWithImpl<$Res> extends _$AppUserCopyWithImpl<$Res>
       phone: phone == freezed ? _value.phone : phone as String,
       email: email == freezed ? _value.email : email as String,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
+      department:
+          department == freezed ? _value.department : department as String,
       isAdmin: isAdmin == freezed ? _value.isAdmin : isAdmin as bool,
     ));
   }
@@ -147,6 +158,7 @@ class _$_AppUser implements _AppUser {
       this.phone,
       this.email,
       this.imageUrl,
+      this.department,
       this.isAdmin = false})
       : assert(isAdmin != null);
 
@@ -165,13 +177,15 @@ class _$_AppUser implements _AppUser {
   final String email;
   @override
   final String imageUrl;
+  @override
+  final String department;
   @JsonKey(defaultValue: false)
   @override
   final bool isAdmin;
 
   @override
   String toString() {
-    return 'AppUser(uid: $uid, userName: $userName, usn: $usn, phone: $phone, email: $email, imageUrl: $imageUrl, isAdmin: $isAdmin)';
+    return 'AppUser(uid: $uid, userName: $userName, usn: $usn, phone: $phone, email: $email, imageUrl: $imageUrl, department: $department, isAdmin: $isAdmin)';
   }
 
   @override
@@ -192,6 +206,9 @@ class _$_AppUser implements _AppUser {
             (identical(other.imageUrl, imageUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.imageUrl, imageUrl)) &&
+            (identical(other.department, department) ||
+                const DeepCollectionEquality()
+                    .equals(other.department, department)) &&
             (identical(other.isAdmin, isAdmin) ||
                 const DeepCollectionEquality().equals(other.isAdmin, isAdmin)));
   }
@@ -205,6 +222,7 @@ class _$_AppUser implements _AppUser {
       const DeepCollectionEquality().hash(phone) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(imageUrl) ^
+      const DeepCollectionEquality().hash(department) ^
       const DeepCollectionEquality().hash(isAdmin);
 
   @override
@@ -225,6 +243,7 @@ abstract class _AppUser implements AppUser {
       String phone,
       String email,
       String imageUrl,
+      String department,
       bool isAdmin}) = _$_AppUser;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
@@ -241,6 +260,8 @@ abstract class _AppUser implements AppUser {
   String get email;
   @override
   String get imageUrl;
+  @override
+  String get department;
   @override
   bool get isAdmin;
   @override

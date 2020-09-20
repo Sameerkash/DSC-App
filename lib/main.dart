@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:dsckssem/views/profile/profile.vm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
@@ -9,9 +8,11 @@ import 'package:provider/provider.dart';
 import 'routes/router.gr.dart';
 import 'services/repository.dart';
 import 'utils/theme.util.dart';
+import 'views/admin/badge/badge.vm.dart';
 import 'views/admin/events/manage.event.vm.dart';
 import 'views/auth/auth.vm.dart';
 import 'views/events/event.vm.dart';
+import 'views/profile/profile.vm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         StateNotifierProvider<ManagaeEventVM, ManageEventState>(
           create: (_) => ManagaeEventVM(),
+        ),
+        StateNotifierProvider<BadgeVM, BadgeState>(
+          create: (_) => BadgeVM(),
         )
       ],
       child: MaterialApp(

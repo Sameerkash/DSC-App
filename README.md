@@ -12,6 +12,7 @@
 - Navigate to `lib/views/auth/authView.dart` and Change the name to your chapter name
 - Navigate to `lib/explore/explore.view.dart` and Change 'DSC KSSEM' to your chapter name
 - Navigate to `lib/explore/explore.view.dart` and Change `youtubeUrl` and `chapterUrl` to your chapter links
+- Login, and update the value of `isAdmin` to `true` in the firebase console, relogin again so the admin page is accessible.
 
   And That's it!, You are all setup to give your chapter a personalized DSC experince with your app 🚀
 
@@ -45,4 +46,4 @@ Contributions are welcome!
 
 **Screenshots**
 
-  <img src="./screenshots/splash.jpg" alt="Splash" width="200" height="400"/> <img src="./screenshots/E1.jpg" alt="Splash" width="200" height="400"/> <img src="./screenshots/ed.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/E2.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/qr.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/chapter.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/profile.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/admin.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/events.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/eform.jpg" alt="Splash" width="200" height="400"/>
+<img src="./screenshots/splash.jpg" alt="Splash" width="200" height="400"/> <img src="./screenshots/E1.jpg" alt="Splash" width="200" height="400"/> <img src="./screenshots/ed.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/E2.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/qr.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/chapter.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/profile.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/admin.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/events.jpg" alt="Splash" width="200" height="400"/><img src="./screenshots/eform.jpg" alt="Splash" width="200" height="400"/>

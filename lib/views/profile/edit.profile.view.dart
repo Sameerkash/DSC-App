@@ -55,6 +55,7 @@ class _EditProfileState extends State<EditProfile> {
                         "email": widget.user.email,
                         "usn": widget.user.usn,
                         "phone": widget.user.phone,
+                        "department": widget.user.department,
                       },
                       child: Column(
                         children: [
@@ -62,7 +63,7 @@ class _EditProfileState extends State<EditProfile> {
                             style: Theme.of(context).textTheme.bodyText1,
                             attribute: "name",
                             decoration: InputDecoration(
-                              labelText: "User Name",
+                              labelText: "Name",
                               border: InputBorder.none,
                             ),
                             validators: [
@@ -85,6 +86,26 @@ class _EditProfileState extends State<EditProfile> {
                               FormBuilderValidators.maxLength(10),
                               FormBuilderValidators.minLength(10),
                             ],
+                          ),
+                          SizedBox(
+                            height: 0.03.hp,
+                          ),
+                          FormBuilderDropdown(
+                            attribute: "department",
+                            decoration:
+                                InputDecoration(labelText: "Department"),
+                            // initialValue: 'Male',
+                            // hint: Text('Select Gender'),
+                            validators: [FormBuilderValidators.required()],
+                            items: ['CSE', 'ECE', 'EEE', 'CIV', "ME"]
+                                .map((d) => DropdownMenuItem(
+                                      value: d,
+                                      child: Text("$d",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1),
+                                    ))
+                                .toList(),
                           ),
                           SizedBox(
                             height: 0.03.hp,

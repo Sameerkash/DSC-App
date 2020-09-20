@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class AdminView extends StatelessWidget {
   @override
@@ -32,6 +33,13 @@ class AdminView extends StatelessWidget {
                 icon: Icons.calendar_today,
                 onTap: () {
                   context.rootNavigator.push('/scanner-view');
+                },
+              ),
+              AdminCard(
+                title: "Add a Badge",
+                icon: MaterialCommunityIcons.medal,
+                onTap: () {
+                  context.rootNavigator.push('/badge-view');
                 },
               ),
               AdminCard(

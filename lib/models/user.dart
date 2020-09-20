@@ -11,6 +11,7 @@ abstract class AppUser with _$AppUser {
     String phone,
     String email,
     String imageUrl,
+    String department,
     @Default(false) bool isAdmin,
   }) = _AppUser;
 
