@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route_annotations.dart';
 
+import '../views/admin/badge/badge.form.view.dart';
 import '../views/admin/badge/badge.view.dart';
 import '../views/admin/events/event.form.view.dart';
 import '../views/admin/events/manage.events.view.dart';
@@ -18,5 +19,6 @@ import '../views/profile/edit.profile.view.dart';
   CupertinoRoute(page: ManageUsersView),
   CupertinoRoute(page: EditProfile),
   CupertinoRoute(page: BadgeView),
+  CupertinoRoute(page: BadgeFormView),
 ], generateNavigationHelperExtension: true)
 class $Router {}

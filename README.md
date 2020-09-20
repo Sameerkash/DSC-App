@@ -16,6 +16,7 @@
 
   And That's it!, You are all setup to give your chapter a personalized DSC experince with your app 🚀
 
+
 **Features**
 
 - [x] View Events page, which displays future events
@@ -33,6 +34,10 @@
 - [x] Manage users
 - [ ] Check Attendess list
 - [ ] Issue Badges to users
+
+**Docs**
+
+
 
 **Contributing**
 

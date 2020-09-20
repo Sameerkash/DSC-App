@@ -336,4 +336,51 @@ class AppRepository {
       return [];
     }
   }
+
+  Future<void> addBadge(
+      {Badge b, File image, String uuid, String imageUrl}) async {
+    try {
+      if (image != null) {
+        var fileExtension = path.extension(image.path);
+        final storageRefrence =
+            firebaseStorage.child('events/$uuid$fileExtension');
+
+        await storageRefrence.putFile(image).onComplete.catchError((err) {
+          print(err);
+          return;
+        });
+
+        String url = await storageRefrence.getDownloadURL();
+        //
+        final badge = b.copyWith(imageUrl: url);
+
+        await firestore
+            .collection('badges')
+            .doc(uuid)
+            .set(badge.toJson(), SetOptions(merge: true));
+      } else {
+        final badge = b.copyWith(imageUrl: imageUrl);
+
+        await firestore
+            .collection('badges')
+            .doc(uuid)
+            .set(badge.toJson(), SetOptions(merge: true));
+      }
+    } catch (e) {
+      print("&e");
+    }
+  }
+
+  Future<void> deleteBadge({@required String bid, String imageUrl}) async {
+    try {
+      final StorageReference storageReference =
+          await FirebaseStorage.instance.getReferenceFromUrl(imageUrl);
+
+      await storageReference.delete();
+
+      await firestore.collection('badges').doc(bid).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
 }

@@ -10,8 +10,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/badge.dart';
 import '../models/event.dart';
 import '../models/user.dart';
+import '../views/admin/badge/badge.form.view.dart';
 import '../views/admin/badge/badge.view.dart';
 import '../views/admin/events/event.form.view.dart';
 import '../views/admin/events/manage.events.view.dart';
@@ -30,6 +32,7 @@ class Routes {
   static const String manageUsersView = '/manage-users-view';
   static const String editProfile = '/edit-profile';
   static const String badgeView = '/badge-view';
+  static const String badgeFormView = '/badge-form-view';
   static const all = <String>{
     appWidget,
     eventDetailView,
@@ -39,6 +42,7 @@ class Routes {
     manageUsersView,
     editProfile,
     badgeView,
+    badgeFormView,
   };
 }
 
@@ -54,6 +58,7 @@ class Router extends RouterBase {
     RouteDef(Routes.manageUsersView, page: ManageUsersView),
     RouteDef(Routes.editProfile, page: EditProfile),
     RouteDef(Routes.badgeView, page: BadgeView),
+    RouteDef(Routes.badgeFormView, page: BadgeFormView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -126,6 +131,19 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    BadgeFormView: (data) {
+      final args = data.getArgs<BadgeFormViewArguments>(
+        orElse: () => BadgeFormViewArguments(),
+      );
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => BadgeFormView(
+          key: args.key,
+          isEditing: args.isEditing,
+          badge: args.badge,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -175,6 +193,17 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
       );
 
   Future<dynamic> pushBadgeView() => push<dynamic>(Routes.badgeView);
+
+  Future<dynamic> pushBadgeFormView({
+    Key key,
+    bool isEditing = false,
+    Badge badge,
+  }) =>
+      push<dynamic>(
+        Routes.badgeFormView,
+        arguments: BadgeFormViewArguments(
+            key: key, isEditing: isEditing, badge: badge),
+      );
 }
 
 /// ************************************************************************
@@ -202,4 +231,12 @@ class EditProfileArguments {
   final Key key;
   final AppUser user;
   EditProfileArguments({this.key, this.user});
+}
+
+/// BadgeFormView arguments holder class
+class BadgeFormViewArguments {
+  final Key key;
+  final bool isEditing;
+  final Badge badge;
+  BadgeFormViewArguments({this.key, this.isEditing = false, this.badge});
 }

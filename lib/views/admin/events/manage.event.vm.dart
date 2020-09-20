@@ -30,12 +30,10 @@ class ManagaeEventVM extends StateNotifier<ManageEventState> with LocatorMixin {
 
   Future<void> createEvent(
       {Map<String, dynamic> form, bool isEditing = false, Event eve}) async {
-    print("called state");
     final current = state;
     if (current is Loaded) {
       if (isEditing) {
         final image = form['image'].isEmpty ? null : form['image'][0];
-        print("called editing");
 
         final Event event = Event(
           name: form['name'],

@@ -1,10 +1,10 @@
-import 'package:dsckssem/views/navbar.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'auth/auth.view.dart';
 import 'auth/auth.vm.dart';
+import 'navbar.widget.dart';
 
 class AppWidget extends StatelessWidget {
   @override
