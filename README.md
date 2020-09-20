@@ -16,7 +16,6 @@
 
   And That's it!, You are all setup to give your chapter a personalized DSC experince with your app 🚀
 
-
 **Features**
 
 - [x] View Events page, which displays future events
@@ -32,11 +31,19 @@
 - [x] Create,update and delete events
 - [x] Verify QR code
 - [x] Manage users
+- [x] Add, Issue Badges to users
 - [ ] Check Attendess list
-- [ ] Issue Badges to users
 
 **Docs**
 
+- State management - [State Notifier](https://pub.dev/packages/state_notifier) and [Provider](https://pub.dev/packages/provider)
+- I've also used [Flutter Hooks](https://pub.dev/packages/flutter_hooks) at places to reduce boilerplate of Stateful Widgets
+- I've used [Freezed](https://pub.dev/packages/freezed) for data modelling as it works so well with Provider and StateNotifier
+- [Auto Route](https://pub.dev/packages/auto_route) for navigation to speed up setting named routes
+- The entire app is Dark Themed by default, although, you can implement light theme as well using the `theme.util.dart` and  `SharedPrefernces`
+- There are also a few  university specific data in the data model for `AppUser` and in `edit.profile.view.dart`, you can always change it to match your requirements. 
+- This project uses the latest version of [FlutterFire](https://firebase.flutter.dev/) plugins, so be sure to check out the documentation for breaking changes
+- Run `pub gloabl activate derry` to use derry for running `build_runner` scripts.
 
 
 **Contributing**
