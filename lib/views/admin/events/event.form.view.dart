@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dsckssem/services/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +15,7 @@ import '../../../widgets/dailog.dart';
 import '../../events/event.vm.dart';
 import 'manage.event.vm.dart';
 
-class EventForm extends StatefulWidget {
+class EventForm extends StatefulHookWidget {
   final bool isEditing;
   final Event event;
   const EventForm({
@@ -32,6 +33,8 @@ class _EventFormState extends State<EventForm> {
 
   @override
   Widget build(BuildContext context) {
+    var badges = useState(<Badge>[]);
+
     return Scaffold(
       appBar: AppBar(
         title:
@@ -167,8 +170,8 @@ class _EventFormState extends State<EventForm> {
                       label: Text("Select Badges"),
                       icon: Icon(MaterialCommunityIcons.medal,
                           color: Colors.deepPurple),
-                      onPressed: () {
-                        showBadgesSheet(context);
+                      onPressed: () async {
+                        badges.value = await showBadgesSheet(context);
                       },
                     ),
                     SizedBox(
@@ -243,62 +246,65 @@ class _EventFormState extends State<EventForm> {
     );
   }
 
-  Future<dynamic> showBadgesSheet(BuildContext context) async {
-    showModalBottomSheet(
-        context: context,
-        builder: (_) {
-          return FutureBuilder<List<Badge>>(
-            future: context.read<AppRepository>().getAllBadges(),
-            builder: (context, snap) {
-              if (snap.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              }
+  Future<List<Badge>> showBadgesSheet(BuildContext context) async {
+    final res = await showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return FutureBuilder<List<Badge>>(
+          future: context.read<AppRepository>().getAllBadges(),
+          builder: (context, snap) {
+            if (snap.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-              if (!snap.hasData) {
-                return Center(
-                  child: Text("You don't have any badges"),
-                );
-              }
-
-              if (snap.hasError) {
-                return Center(
-                  child: Text("${snap.error}"),
-                );
-              }
-
-              return Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 0.02.wp,
-                    mainAxisSpacing: 0.03.hp,
-                  ),
-                  itemCount: snap.data.length,
-                  itemBuilder: (_, index) {
-                    return GestureDetector(
-                      onLongPress: () async {},
-                      onTap: () {},
-                      child: CachedNetworkImage(
-                        imageUrl: snap.data[index].imageUrl,
-                        imageBuilder: (_, img) {
-                          return CircleAvatar(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: img, fit: BoxFit.fill),
-                              ),
-                            ),
-                            backgroundColor: Colors.white,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
+            if (!snap.hasData) {
+              return Center(
+                child: Text("You don't have any badges"),
               );
-            },
-          );
-        });
+            }
+
+            if (snap.hasError) {
+              return Center(
+                child: Text("${snap.error}"),
+              );
+            }
+
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 0.02.wp,
+                  mainAxisSpacing: 0.03.hp,
+                ),
+                itemCount: snap.data.length,
+                itemBuilder: (_, index) {
+                  return GestureDetector(
+                    onLongPress: () async {},
+                    onTap: () {},
+                    child: CachedNetworkImage(
+                      imageUrl: snap.data[index].imageUrl,
+                      imageBuilder: (_, img) {
+                        return CircleAvatar(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image:
+                                  DecorationImage(image: img, fit: BoxFit.fill),
+                            ),
+                          ),
+                          backgroundColor: Colors.white,
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        );
+      },
+    );
+
+    return res;
   }
 }
