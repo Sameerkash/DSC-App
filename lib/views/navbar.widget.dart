@@ -72,7 +72,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   quarterTurns: -1,
                   child: Text(
                     'Events',
-                    style: TextStyle(color: Colors.orangeAccent),
+                    style: TextStyle(color: Colors.redAccent),
                   ),
                 ),
               ),
@@ -85,20 +85,36 @@ class _NavBarPageState extends State<NavBarPage> {
               NavigationRailDestination(
                 icon: SizedBox.shrink(),
                 selectedIcon: SizedBox.shrink(),
-                label: RotatedBox(quarterTurns: -1, child: Text('Explore')),
+                label: RotatedBox(
+                  quarterTurns: -1,
+                  child: Text(
+                    'Explore',
+                    style: TextStyle(color: Colors.amberAccent),
+                  ),
+                ),
               ),
               NavigationRailDestination(
                 icon: SizedBox.shrink(),
                 selectedIcon: SizedBox.shrink(),
                 // selectedIcon: Icon(Icons.favorite),
-                label: RotatedBox(quarterTurns: -1, child: Text('Profile')),
+                label: RotatedBox(
+                    quarterTurns: -1,
+                    child: Text(
+                      'Profile',
+                      style: TextStyle(color: Colors.greenAccent),
+                    )),
               ),
               if (widget.isAdmin)
                 NavigationRailDestination(
                   icon: SizedBox.shrink(),
                   selectedIcon: SizedBox.shrink(),
                   // selectedIcon: Icon(Icons.favorite),
-                  label: RotatedBox(quarterTurns: -1, child: Text('Admin')),
+                  label: RotatedBox(
+                      quarterTurns: -1,
+                      child: Text(
+                        'Admin',
+                        style: TextStyle(color: Colors.blueAccent),
+                      )),
                 ),
             ],
           ),

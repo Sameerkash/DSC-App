@@ -1,3 +1,4 @@
+import 'package:dsckssem/models/badge.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'event.freezed.dart';
 part 'event.g.dart';
@@ -11,6 +12,7 @@ abstract class Event with _$Event {
     String imageUrl,
     String description,
     DateTime time,
+    List<Badge> badges, 
     @Default("0xffffc107") String color,
     @Default("0xffffb300") String secondaryColor,
     @JsonKey(ignore: true) @Default(false) bool isRegistered,

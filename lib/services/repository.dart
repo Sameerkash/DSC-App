@@ -326,6 +326,7 @@ class AppRepository {
       print('res');
 
       res.docs.forEach((d) {
+        
         final Badge b = Badge.fromJson(d.data());
         badges.add(b);
       });

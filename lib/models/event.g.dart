@@ -14,6 +14,10 @@ _$_Event _$_$_EventFromJson(Map<String, dynamic> json) {
     imageUrl: json['imageUrl'] as String,
     description: json['description'] as String,
     time: json['time'] == null ? null : DateTime.parse(json['time'] as String),
+    badges: (json['badges'] as List)
+        ?.map(
+            (e) => e == null ? null : Badge.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     color: json['color'] as String ?? '0xffffc107',
     secondaryColor: json['secondaryColor'] as String ?? '0xffffb300',
   );
@@ -26,6 +30,7 @@ Map<String, dynamic> _$_$_EventToJson(_$_Event instance) => <String, dynamic>{
       'imageUrl': instance.imageUrl,
       'description': instance.description,
       'time': instance.time?.toIso8601String(),
+      'badges': instance.badges,
       'color': instance.color,
       'secondaryColor': instance.secondaryColor,
     };

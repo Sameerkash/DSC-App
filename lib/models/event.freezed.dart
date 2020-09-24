@@ -23,6 +23,7 @@ class _$EventTearOff {
       String imageUrl,
       String description,
       DateTime time,
+      List<Badge> badges,
       String color = '0xffffc107',
       String secondaryColor = '0xffffb300',
       @JsonKey(ignore: true) bool isRegistered = false}) {
@@ -33,6 +34,7 @@ class _$EventTearOff {
       imageUrl: imageUrl,
       description: description,
       time: time,
+      badges: badges,
       color: color,
       secondaryColor: secondaryColor,
       isRegistered: isRegistered,
@@ -50,6 +52,7 @@ mixin _$Event {
   String get imageUrl;
   String get description;
   DateTime get time;
+  List<Badge> get badges;
   String get color;
   String get secondaryColor;
   @JsonKey(ignore: true)
@@ -69,6 +72,7 @@ abstract class $EventCopyWith<$Res> {
       String imageUrl,
       String description,
       DateTime time,
+      List<Badge> badges,
       String color,
       String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered});
@@ -89,6 +93,7 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
     Object imageUrl = freezed,
     Object description = freezed,
     Object time = freezed,
+    Object badges = freezed,
     Object color = freezed,
     Object secondaryColor = freezed,
     Object isRegistered = freezed,
@@ -101,6 +106,7 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
       description:
           description == freezed ? _value.description : description as String,
       time: time == freezed ? _value.time : time as DateTime,
+      badges: badges == freezed ? _value.badges : badges as List<Badge>,
       color: color == freezed ? _value.color : color as String,
       secondaryColor: secondaryColor == freezed
           ? _value.secondaryColor
@@ -122,6 +128,7 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String imageUrl,
       String description,
       DateTime time,
+      List<Badge> badges,
       String color,
       String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered});
@@ -143,6 +150,7 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     Object imageUrl = freezed,
     Object description = freezed,
     Object time = freezed,
+    Object badges = freezed,
     Object color = freezed,
     Object secondaryColor = freezed,
     Object isRegistered = freezed,
@@ -155,6 +163,7 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
       description:
           description == freezed ? _value.description : description as String,
       time: time == freezed ? _value.time : time as DateTime,
+      badges: badges == freezed ? _value.badges : badges as List<Badge>,
       color: color == freezed ? _value.color : color as String,
       secondaryColor: secondaryColor == freezed
           ? _value.secondaryColor
@@ -174,6 +183,7 @@ class _$_Event implements _Event {
       this.imageUrl,
       this.description,
       this.time,
+      this.badges,
       this.color = '0xffffc107',
       this.secondaryColor = '0xffffb300',
       @JsonKey(ignore: true) this.isRegistered = false})
@@ -198,6 +208,8 @@ class _$_Event implements _Event {
   final String description;
   @override
   final DateTime time;
+  @override
+  final List<Badge> badges;
   @JsonKey(defaultValue: '0xffffc107')
   @override
   final String color;
@@ -210,7 +222,7 @@ class _$_Event implements _Event {
 
   @override
   String toString() {
-    return 'Event(eid: $eid, name: $name, attendees: $attendees, imageUrl: $imageUrl, description: $description, time: $time, color: $color, secondaryColor: $secondaryColor, isRegistered: $isRegistered)';
+    return 'Event(eid: $eid, name: $name, attendees: $attendees, imageUrl: $imageUrl, description: $description, time: $time, badges: $badges, color: $color, secondaryColor: $secondaryColor, isRegistered: $isRegistered)';
   }
 
   @override
@@ -232,6 +244,8 @@ class _$_Event implements _Event {
                     .equals(other.description, description)) &&
             (identical(other.time, time) ||
                 const DeepCollectionEquality().equals(other.time, time)) &&
+            (identical(other.badges, badges) ||
+                const DeepCollectionEquality().equals(other.badges, badges)) &&
             (identical(other.color, color) ||
                 const DeepCollectionEquality().equals(other.color, color)) &&
             (identical(other.secondaryColor, secondaryColor) ||
@@ -251,6 +265,7 @@ class _$_Event implements _Event {
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(time) ^
+      const DeepCollectionEquality().hash(badges) ^
       const DeepCollectionEquality().hash(color) ^
       const DeepCollectionEquality().hash(secondaryColor) ^
       const DeepCollectionEquality().hash(isRegistered);
@@ -273,6 +288,7 @@ abstract class _Event implements Event {
       String imageUrl,
       String description,
       DateTime time,
+      List<Badge> badges,
       String color,
       String secondaryColor,
       @JsonKey(ignore: true) bool isRegistered}) = _$_Event;
@@ -291,6 +307,8 @@ abstract class _Event implements Event {
   String get description;
   @override
   DateTime get time;
+  @override
+  List<Badge> get badges;
   @override
   String get color;
   @override
