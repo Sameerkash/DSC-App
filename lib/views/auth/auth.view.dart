@@ -9,7 +9,7 @@ import 'auth.vm.dart';
 class AutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final height = ScreenUtil.screenHeight;
+    final height = ScreenUtil.defaultSize.height;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -44,7 +44,9 @@ class AutView extends StatelessWidget {
                     ),
                     Expanded(
                       child: AutoSizeText(
-                        "KS School of Engineering and Management", /// Change to your chapter name
+                        "KS School of Engineering and Management",
+
+                        /// Change to your chapter name
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[300]),

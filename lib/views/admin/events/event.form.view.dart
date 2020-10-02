@@ -247,64 +247,93 @@ class _EventFormState extends State<EventForm> {
   }
 
   Future<List<Badge>> showBadgesSheet(BuildContext context) async {
-    final res = await showModalBottomSheet(
+    List<Badge> b = [];
+
+    showModalBottomSheet(
       context: context,
       builder: (_) {
-        return FutureBuilder<List<Badge>>(
-          future: context.read<AppRepository>().getAllBadges(),
-          builder: (context, snap) {
-            if (snap.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return FutureBuilder<List<Badge>>(
+              future: context.watch<AppRepository>().getAllBadges(),
+              builder: (context, snap) {
+                if (snap.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-            if (!snap.hasData) {
-              return Center(
-                child: Text("You don't have any badges"),
-              );
-            }
-
-            if (snap.hasError) {
-              return Center(
-                child: Text("${snap.error}"),
-              );
-            }
-
-            return Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 0.02.wp,
-                  mainAxisSpacing: 0.03.hp,
-                ),
-                itemCount: snap.data.length,
-                itemBuilder: (_, index) {
-                  return GestureDetector(
-                    onLongPress: () async {},
-                    onTap: () {},
-                    child: CachedNetworkImage(
-                      imageUrl: snap.data[index].imageUrl,
-                      imageBuilder: (_, img) {
-                        return CircleAvatar(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image:
-                                  DecorationImage(image: img, fit: BoxFit.fill),
-                            ),
-                          ),
-                          backgroundColor: Colors.white,
-                        );
-                      },
-                    ),
+                if (!snap.hasData) {
+                  return Center(
+                    child: Text("You don't have any badges"),
                   );
-                },
-              ),
+                }
+
+                if (snap.hasError) {
+                  return Center(
+                    child: Text("${snap.error}"),
+                  );
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 0.02.wp,
+                      mainAxisSpacing: 0.03.hp,
+                    ),
+                    itemCount: snap.data.length,
+                    itemBuilder: (_, index) {
+                      return GestureDetector(
+                        onLongPress: () async {},
+                        onTap: () {
+                          if (!b.contains(snap.data[index])) {
+                            setState(() {
+                              b.add(snap.data[index]);
+                            });
+                          } else {
+                            setState(() {
+                              b.remove(snap.data[index]);
+                            });
+                          }
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl: snap.data[index].imageUrl,
+                          imageBuilder: (_, img) {
+                            return CircleAvatar(
+                              maxRadius: 0.05.hp,
+                              child: Stack(
+                                children: [
+                                  if (b.contains(snap.data[index]))
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Colors.amberAccent,
+                                        size: 35,
+                                      ),
+                                    ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: img, fit: BoxFit.fill),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              backgroundColor: Colors.white,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
             );
           },
         );
       },
     );
-
-    return res;
+    return b;
   }
 }

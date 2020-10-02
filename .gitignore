@@ -31,6 +31,8 @@
 .pub/
 /build/
 google-services.json
+.fvm
+.vscode
 
 # Web related
 lib/generated_plugin_registrant.dart

@@ -13,7 +13,7 @@ class AppWidget extends StatelessWidget {
       builder: (context, constraints) {
         final size = MediaQuery.of(context).size;
         ScreenUtil.init(context,
-            allowFontScaling: true, width: size.width, height: size.height);
+            allowFontScaling: true, designSize: Size(size.width, size.height));
         return context.watch<AuthState>().map(
               loading: (_) => Center(child: CircularProgressIndicator()),
               authenticated: (data) => NavBarPage(

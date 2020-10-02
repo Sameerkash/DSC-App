@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 
-import 'routes/router.gr.dart';
+import 'routes/router.gr.dart' as r;
 import 'services/repository.dart';
 import 'utils/theme.util.dart';
 import 'views/admin/badge/badge.vm.dart';
@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: AppTheme.darkTheme,
-        builder: ExtendedNavigator.builder(
-            router: Router(), builder: DevicePreview.appBuilder),
+        builder: ExtendedNavigator.builder<r.Router>(
+            router: r.Router(), builder: DevicePreview.appBuilder),
       ),
     );
   }
